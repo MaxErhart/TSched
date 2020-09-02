@@ -1,0 +1,6 @@
+<div class="grid-body">
+	<div class="grid-row" *ngFor="let row of grid">
+		<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked"></div>
+	</div>
+</div>
+

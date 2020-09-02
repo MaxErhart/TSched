@@ -8,19 +8,83 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
+$mat-myGreen: (
+  50: #d4f6f2,
+  100: #92e9dc,
+  200: #03dac4,
+  300: #00c7ab,
+  400: #00b798,
+  500: #00a885,
+  600: #009a77,
+  700: #008966,
+  800: #007957,
+  900: #005b39,
+  A100: #ff80ab,
+  A200: #ff4081,
+  A400: #f50057,
+  A700: #c51162,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $light-primary-text,
+  )
+);
 
+$mat-myPurple: (
+  50: #efe5fd,
+  100: #d5bff9,
+  200: #b894f6,
+  300: #9a66f4,
+  400: #803ff2,
+  500: #6300ee,
+  600: #5600e8,
+  700: #4100e0,
+  800: #2300db,
+  900: #0000d6,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$TSched-primary: mat-palette($mat-indigo);
-$TSched-accent: mat-palette($mat-pink, A200, A100, A400);
+$TSched-primary: mat-palette($mat-myPurple);
+$TSched-accent: mat-palette($mat-myGreen, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $TSched-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$TSched-theme: mat-light-theme((
+$TSched-theme: mat-dark-theme((
   color: (
     primary: $TSched-primary,
     accent: $TSched-accent,
@@ -35,5 +99,58 @@ $TSched-theme: mat-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$grid-col-width: 275px;
+$grid-row-height: 17.5px;
+
+$mat-purple-50: #efe5fd;
+$mat-purple-100: #d5bff9;
+$mat-purple-200: #b894f6;
+$mat-purple-300: #9a66f4;
+$mat-purple-400: #803ff2;
+$mat-purple-500: #6300ee;
+$mat-purple-600: #5600e8;
+$mat-purple-700: #4100e0;
+$mat-purple-800: #2300db;
+$mat-purple-900: #0000d6;
+
+$mat-green-50: #d4f6f2;
+$mat-green-100: #92e9dc;
+$mat-green-200: #03dac4;
+$mat-green-300: #00c7ab;
+$mat-green-400: #00b798;
+$mat-green-500: #00a885;
+$mat-green-600: #009a77;
+$mat-green-700: #008966;
+$mat-green-800: #007957;
+$mat-green-900: #005b39;
+
+$mat-gray-50: #FFFFFF;
+$mat-gray-100: #E8E8E8;
+$mat-gray-200: #D3D3D3;
+$mat-gray-300: #BEBEBE;
+$mat-gray-400: #A8A8A8;
+$mat-gray-500: #888888;
+$mat-gray-600: #696969;
+$mat-gray-700: #505050;
+$mat-gray-800: #303030;
+$mat-gray-900: #101010;
+
+$dark-theme-font-color:  #D3D3D3;
+$light-theme-font-color:  #000000;
+$font-color: $dark-theme-font-color;
+
+
+html, body {
+  box-sizing: border-box !important;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit !important;
+}
+
+body { margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	background-color: $mat-gray-800;
+}
+

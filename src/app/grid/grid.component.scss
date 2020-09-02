@@ -1,0 +1,41 @@
+@import '../../styles';
+
+.grid-body {
+	box-sizing: border-box;
+	display: grid;
+	position: absolute;
+	grid-template-columns: $grid-col-width;
+	grid-auto-rows: $grid-row-height;
+}
+.grid-row {
+	box-sizing: border-box;
+	display: contents;
+}
+
+.grid-item {
+	box-sizing: border-box;
+	background-color: #eeeeee;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+}
+
+.grid-item:last-of-type {
+	border-right: 1px solid black;
+}
+
+.grid-row:last-of-type > div {
+	border-bottom: 1px solid black;
+}
+
+.grid-row:nth-child(2n) > div{
+	border-top: 0;
+}
+
+.grid-row:nth-child(2n+1) > div{
+	border-bottom: 0;
+}
+
+.grid-item.selected {
+	transition: 200ms ease-in-out;
+	background-color: #92e9dc !important;
+}
