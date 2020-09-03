@@ -2,36 +2,255 @@
 
 
 .book-form-container{
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	border: 2px solid $mat-gray-600;
-	border-radius: 5px;
-	padding: 5px;
+	position: absolute;
+	display: grid;
+	grid-template-rows: 30% 70%;
+	grid-template-columns: 100%;
+	width: 345px;
+	min-width: 345px;
+	height: 300px;
+	min-height: 300px;
+	border-radius: 4px;
+	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+	visibility: hidden !important;
+	z-index: 2;
+	&.active{
+		visibility: visible !important;
+	}
 }
 
 .book-form-header{
+	grid-row: 1/2;
 	position: relative;
 	width: 100%;
-	height: 30%;
-	border-bottom: 2px solid $mat-purple-500;
+	background-color:  $mat-purple-600;
 	padding: 5px;
+	display: grid;
+	grid-template-rows: auto auto auto;
+	grid-template-columns: auto;
+	align-items: center;
+	white-space: nowrap;
+	color: $font-color;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.header-close-button{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+.header-item {
+	height: 1em;
+	font-size: 1.4em;
+	white-space: nowrap;
+}
+.page-name{
+	grid-row: 1/2;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.day-name > div{
+	display: inline-block;
+}
+.day-name {
+	grid-row: 2/3;
+
+}
+
+.timespan {
+	grid-row: 3/4;
+
+}
+.timespan > div {
+	display: inline-block;
+}
+
+
+.page-1{
+	position: relative;
+	display: grid;
+	grid-template-rows: 78% 22%;
+	grid-row: 2/3;
+	grid-column: 1/2;
+	width: 100%;
+	height: 100%;
+}
+
+.page-2{
+	position: relative;
+	display: grid;
+	grid-template-rows: 78% 22%;
+	grid-row: 2/3;
+	grid-column: 1/2;
+	width: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	visibility: hidden;
+	animation: pageChange 240ms ease-out normal backwards;
+	z-index: 0;
+}
+
+.page-2.active {
+	visibility: visible;
+	animation: pageChangePrev 240ms ease-out normal backwards;
+}
+
+@keyframes pageChange {
+	0% {visibility: visible;}
+	100% {visibility: visible;}
+}
+
+@keyframes pageChangePrev {
+	0% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+
+.page-2 > * {
+	transform: translateX(100%);
+	transition: transform 240ms;
+}
+
+.page-2.active > * {
+	transform: translateX(0%);
+	transition: transform 240ms;
 }
 
 .book-form-body{
 	position: relative;
 	width: 100%;
-	height: 60%;
 	border-bottom: 2px solid $mat-gray-600;
 	padding: 5px;
 	color: $font-color;
+	background-color: $mat-gray-750;
+}
+
+.book-form-body-page-2{
+	position: relative;
+	width: 100%;
+	border-bottom: 2px solid $mat-gray-600;
+	padding: 5px;
+	color: $font-color;
+	background-color: $mat-gray-750;
+}
+
+.book-form{
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+.grid-item{
+	height: 100%;
+	display: flex;
+	align-items:center;
+	justify-content: flex-start;
+}
+
+.item-1{
+	grid-row: 1/2;
+	grid-column: 1/2;
+}
+
+.item-2{
+	grid-row: 1/2;
+	grid-column: 2/3;
+}
+
+.item-3{
+	grid-row: 2/3;
+	grid-column: 1/3;
+}
+
+.span-icon{
+	transform: translateY(-6px);
 }
 
 .book-form-footer{
 	position: relative;
 	width: 100%;
-	height: 10%;
 	padding: 5px;
+	display: flex;
+	align-items:center;
+	background-color: $mat-gray-750;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.book-form-footer-page-2{
+	position: relative;
+	width: 100%;
+	padding: 5px;
+	display: flex;
+	align-items:center;
+	background-color: $mat-gray-750;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.go-left-button{
+	margin-right: auto;
+}
+
+.go-right-button{
+	margin-left: auto;
+	z-index: 1;
+}
+
+.suffix-icon-container{
+	display: flex;
+	height: 35px;
+	width: 35px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+	&.active{
+		color: $mat-purple-600;
+	}
+}
+.timepicker-icon {
+	transform: translate(2px, 0) scale(1.1);
+}
+
+.form-field{
+	width: 155px;
+}
+
+.text-field{
+	width: 310px !important;
+}
+
+.option-item {
+	height: 30px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.option-icon {
+	width: 30%;
+	height: 100%;
+	margin-left: auto;
+	border-radius: 4px;
+}
+
+.book-form-overlay{
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	visibility: hidden;
+	// background-color: #ffffff;
+	&.active{
+		visibility: visible;
+	}
 }

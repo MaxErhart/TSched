@@ -9,11 +9,11 @@
 	</div>
 	<div class="footer">
 		<div class="icon-container">
-			<mat-icon class="close-icon material-icon" (click)="closeTimepicker(false)">close</mat-icon>
+			<mat-icon class="close-icon material-icon" (click)="close(false)">close</mat-icon>
 		</div>
 		<div class="icon-container">
-			<mat-icon class="accept-icon material-icon" (click)="closeTimepicker(true)">done</mat-icon>
+			<mat-icon class="accept-icon material-icon" (click)="close(true)">done</mat-icon>
 		</div>
 	</div>
 </div>
-<div class="timepicker-overlay" [class.active]="active" (click)="closeTimepicker(false)"></div>
+<div class="timepicker-overlay" [class.active]="active" (click)="close(false)"></div>

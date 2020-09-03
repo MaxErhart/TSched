@@ -132,7 +132,9 @@ $mat-gray-400: #A8A8A8;
 $mat-gray-500: #888888;
 $mat-gray-600: #696969;
 $mat-gray-700: #505050;
+$mat-gray-750: #404040;
 $mat-gray-800: #303030;
+$mat-gray-850: #202020;
 $mat-gray-900: #101010;
 
 $dark-theme-font-color:  #D3D3D3;
@@ -150,7 +152,7 @@ html, body {
 }
 
 body { margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-family: Roboto, "Helvetica Neue", sans-serif !important;
 	background-color: $mat-gray-800;
 }
 

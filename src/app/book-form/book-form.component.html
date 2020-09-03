@@ -1,36 +1,117 @@
-<div class="book-form-container">
+<div class="book-form-container" [class.active]="active">
 	<div class="book-form-header">
-
+		<!-- <div class="page-name header-item"><span class="underline">{{activePageName}}</span></div> -->
+		<div class="day-name header-item">
+			<div *ngIf="bookForm.get('date').value">
+				<span class="underline">{{bookForm.get('date').value._d | date:"EEEE"}},</span>&nbsp;den {{bookForm.get('date').value._d | date:"dd.MM.yyyy"}}
+			</div>
+		</div>
+		<div class="timespan header-item">
+			<div *ngIf="bookForm.get('startTime').value">
+				Von <span class="underline">{{bookForm.get('startTime').value}}</span>
+			</div>
+			<div *ngIf="bookForm.get('endTime').value">
+				&nbsp; bis <span class="underline">{{bookForm.get('endTime').value}}</span>
+			</div>
+		</div>
+		<button mat-icon-button class="header-close-button" (click)="close(false)">
+      <mat-icon>close</mat-icon>
+    </button>
 	</div>
 
-	<div class="book-form-body">
-		<form>
+	<div class="page-1">
+		<div class="book-form-body">
+			<form class="book-form">
 
-			<mat-form-field appearance="outline" class="form-field datepicker">
-			  <mat-label>Choose a date</mat-label>
-			  <input matInput [matDatepicker]="picker">
-			  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-			  <mat-datepicker #picker></mat-datepicker>
-			</mat-form-field>
-
-			<mat-form-field appearance="outline" class="form-field timepicker">
-			  <mat-label>Choose a time</mat-label>
-			  <input matInput>
-			</mat-form-field>
-
-			<mat-form-field appearance="outline" class="form-field timepicker">
-			  <mat-label>Choose a time</mat-label>
-			  <input matInput>
-			</mat-form-field>
-
-			<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" >Wöchentlich</mat-checkbox>
-
-		</form>
+				<div class="grid-item item-1">
+					<mat-form-field appearance="outline" class="form-field datepicker" [formGroup]="bookForm">
+					  <mat-label>Datum</mat-label>
+					  <input matInput [matDatepicker]="picker" formControlName="date" required>
+					  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					  <mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+				</div>
 
 
+				<div class="grid-item item-2">
+					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
+				</div>
+
+				<div class="grid-item item-3">
+					<mat-form-field appearance="outline" class="form-field timepicker-start" [formGroup]="bookForm">
+					  <mat-label>Startzeitpunkt</mat-label>
+					  <input matInput formControlName="startTime" required>
+						<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
+							<mat-icon class="timepicker-icon" >access_time</mat-icon>
+						</div>
+					  <app-timepicker #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					</mat-form-field>
+					<mat-icon class="span-icon" >remove</mat-icon>
+					<mat-form-field appearance="outline" class="form-field timepicker-end" [formGroup]="bookForm">
+					  <mat-label>Endzeitpunkt</mat-label>
+					  <input matInput formControlName="endTime" required>
+						<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
+							<mat-icon class="timepicker-icon" >access_time</mat-icon>
+						</div>
+					  <app-timepicker #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					</mat-form-field>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="book-form-footer">
+	    <button mat-mini-fab color="primary" class="go-right-button" (click)="openPage2()" *ngIf="!page2Ative">
+	      <mat-icon>keyboard_arrow_right</mat-icon>
+	    </button>
+		</div>
 	</div>
 
-	<div class="book-form-footer">
 
+
+	<div class="page-2" [class.active]="page2Ative" *ngIf="active">
+		<div class="book-form-body-page-2">
+			<form class="book-form">
+				<div class="grid-item item-1">
+				  <mat-form-field appearance="outline" class="title-field form-field" [formGroup]="bookForm">
+				    <mat-label>Ereignis Titel</mat-label>
+				    <input matInput required formControlName="title" maxlength="25">
+				    <!-- <mat-error *ngIf="bookForm.get('title').invalid">{{getErrorMessage(formGroup.get('title'))}}</mat-error> -->
+				  </mat-form-field>
+				</div>
+				<div class="grid-item item-2">
+				  <mat-form-field appearance="outline"  class="color-field form-field" [formGroup]="bookForm">
+				    <mat-label>Farbwahl</mat-label>
+				    <mat-select formControlName="color">
+				      <mat-option [value]="color.value" *ngFor="let color of colors | keyvalue">
+				      	<div class="option-item" >
+				      		<div class="option-text">
+				      			{{color.key | titlecase}}
+				      		</div>
+				      		<div class="option-icon" [style.backgroundColor]="color.value"></div>
+				      	</div>
+				      </mat-option>
+				    </mat-select>
+				  </mat-form-field>
+				</div>
+				<div class="grid-item item-3">
+				  <mat-form-field appearance="outline"  class="text-field form-field" [formGroup]="bookForm">
+				    <mat-label>Info Text</mat-label>
+				    <textarea matInput formControlName="info"></textarea>
+				  </mat-form-field>
+				</div>
+
+			</form>
+		</div>
+
+	  <div class="book-form-footer-page-2">
+	    <button mat-mini-fab color="primary" class="go-left-button" (click)="closePage2()">
+	      <mat-icon>keyboard_arrow_left</mat-icon>
+	    </button>
+	    <button mat-raised-button color="primary" class="accept-button" (click)="close(true)">Bestätigen</button>
+		</div>
 	</div>
+
+
 </div>
+<div class="book-form-overlay" [class.active]="active" (click)="close(false)"></div>

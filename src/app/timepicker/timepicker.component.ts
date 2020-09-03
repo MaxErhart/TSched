@@ -12,7 +12,7 @@ export class TimepickerComponent implements OnInit {
 	@Input() selectedHoure: string;
 	@Input() selectedMinute: string;
 	@Output() submit = new EventEmitter();
-	active = true;
+	active = false;
 	@ViewChild('houres') hourPickerElement: ElementRef;
 
   constructor() { }
@@ -32,15 +32,19 @@ export class TimepickerComponent implements OnInit {
 		}
   }
 
-  closeTimepicker(submit){
+  close(submit){
   	this.active = false;
-  	if(submit){
+  	if(submit && this.selectedHoure && this.selectedMinute){
   		this.submit.emit({houre: this.selectedHoure, minute: this.selectedMinute})
   	}
   }
 
-  openTimepicker(){
+  open(){
   	this.active = true;
+  }
+
+  toggle(){
+    this.active ? this.close(false) : this.open();
   }
 
 }
