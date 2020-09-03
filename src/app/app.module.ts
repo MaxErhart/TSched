@@ -30,6 +30,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { TimepickerComponent } from './timepicker/timepicker.component';
 import { EventComponent } from './event/event.component';
+import { NewEventButtonComponent } from './new-event-button/new-event-button.component';
 
 export const DateFormats = {
         parse: {
@@ -50,7 +51,8 @@ export const DateFormats = {
     GridComponent,
     BookFormComponent,
     TimepickerComponent,
-    EventComponent
+    EventComponent,
+    NewEventButtonComponent
   ],
   imports: [
     BrowserModule,
