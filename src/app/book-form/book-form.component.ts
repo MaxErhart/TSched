@@ -1,33 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import {FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, FormGroupDirective, NgForm, AbstractControl} from '@angular/forms';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import { invalidTimeSpanValidator, pastDateValidator } from '../book-form.validators'
 import * as Moment from 'moment';
-
-export const invalidTimeSpanValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-	const startTime = control.get('startTime');
-	const endTime = control.get('endTime');
-	if(startTime.value && endTime.value){
-		if(+startTime.value.split(':')[0] > +endTime.value.split(':')[0] || (+startTime.value.split(':')[0] == +endTime.value.split(':')[0] && +startTime.value.split(':')[1] >= +endTime.value.split(':')[1])){
-			control.get('startTime').setErrors({startTimeLarger: true});
-			control.get('endTime').setErrors({startTimeLarger: true});
-			return {startTimeLarger: true};
-
-		} else {
-			control.get('startTime').setErrors(null);
-			control.get('endTime').setErrors(null);
-			return null;
-		}
-	}
-};
-
-
-export const pastDateValidator: ValidatorFn = (control: FormControl): ValidationErrors | null => {
-	const today = new Date();
-	if(control.value && control.value._d.getFullYear()>=today.getFullYear() && control.value._d.getMonth()>=today.getMonth() && control.value._d.getDate()>=today.getDate()){
-		return null;
-	} else {
-		return {pastDate: true};
-	}
-}
 
 @Component({
   selector: 'app-book-form',
@@ -41,6 +15,7 @@ export class BookFormComponent implements OnInit {
 	page2Ative = false;
 	active = true;
 	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld'}
+	@Input() selection: {date: Date, startTime: string, endTime: string};
 	bookForm = new FormGroup(
 		{
 			date: new FormControl('', [Validators.required, pastDateValidator]),
@@ -60,7 +35,7 @@ export class BookFormComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-  	// console.log(this.bookForm)
+  	// console.log(this.bookForm.value)
   	// console.log(Object.keys(this.bookForm.get('date').errors))
   }
 
@@ -76,11 +51,22 @@ export class BookFormComponent implements OnInit {
 
   closePage2(){
   	this.page2Ative=false;
+
+  }
+
+  open(){
+  	if(this.selection){
+	    this.bookForm.get('date').setValue(Moment(this.selection.date));
+	    this.bookForm.get('startTime').setValue(this.selection.startTime);
+	    this.bookForm.get('endTime').setValue(this.selection.endTime);
+  	}
+  	this.active=true;
   }
 
   close(submit){
   	if(submit){
 	  	if(this.bookForm.valid){
+	  		console.log('pls implemet submit lol')
 		  	this.active = false;
 	  	}
   	} else {

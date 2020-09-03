@@ -31,6 +31,7 @@ import { BookFormComponent } from './book-form/book-form.component';
 import { TimepickerComponent } from './timepicker/timepicker.component';
 import { EventComponent } from './event/event.component';
 import { NewEventButtonComponent } from './new-event-button/new-event-button.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 export const DateFormats = {
         parse: {
@@ -52,7 +53,8 @@ export const DateFormats = {
     BookFormComponent,
     TimepickerComponent,
     EventComponent,
-    NewEventButtonComponent
+    NewEventButtonComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
