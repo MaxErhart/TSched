@@ -1,0 +1,26 @@
+<div class="event-container" [class.active]="active" (click)="open()">
+	<div class="event-header">
+		<button mat-icon-button class="delete-button" *ngIf="active">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+		<div class="timespan header-item">
+			{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
+		</div>
+		<div class="date header-item">
+			{{event.startDate | date:'EEEE, d MMM, y'}}
+		</div>
+		<div class="title header-item">
+			{{event.title | titlecase}}
+		</div>
+		<div class="owner header-item">
+			{{event.owner | titlecase}}
+		</div>
+	</div>
+	<div class="event-body">
+		{{event.info}}
+	</div>
+	<div class="event-footer">
+		This Footer
+	</div>
+</div>
+<div class="overlay" [class.active]="active" (click)="close()"></div>

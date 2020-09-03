@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { TimepickerComponent } from './timepicker/timepicker.component';
+import { EventComponent } from './event/event.component';
 
 export const DateFormats = {
         parse: {
@@ -48,7 +49,8 @@ export const DateFormats = {
     ToolbarComponent,
     GridComponent,
     BookFormComponent,
-    TimepickerComponent
+    TimepickerComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,
