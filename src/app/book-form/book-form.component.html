@@ -29,6 +29,7 @@
 					  <input matInput [matDatepicker]="picker" formControlName="date" required>
 					  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 					  <mat-datepicker #picker></mat-datepicker>
+					  <mat-error *ngIf="bookForm.get('date').invalid">{{getErrorMessage(bookForm.get('date'))}}</mat-error>
 					</mat-form-field>
 				</div>
 
@@ -44,6 +45,7 @@
 						<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>
+						<mat-error *ngIf="bookForm.get('startTime').invalid">{{getErrorMessage(bookForm.get('startTime'))}}</mat-error>
 					  <app-timepicker #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 					</mat-form-field>
 					<mat-icon class="span-icon" >remove</mat-icon>
@@ -53,6 +55,7 @@
 						<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>
+						<mat-error *ngIf="bookForm.get('endTime').invalid">{{getErrorMessage(bookForm.get('endTime'))}}</mat-error>
 					  <app-timepicker #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 					</mat-form-field>
 				</div>
