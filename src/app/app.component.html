@@ -1,7 +1,27 @@
 <!-- <app-toolbar></app-toolbar> -->
 <!-- <app-grid></app-grid> -->
-<app-book-form id="book-form"></app-book-form>
+
 <!-- <app-timepicker id="timepicker" [selectedHoure]="houre" [selectedMinute]="minute" (submit)="houre = $event.houre; minute = $event.minute"></app-timepicker> -->
 <!-- <app-event id="event" ></app-event> -->
-<!-- <app-new-event-button id="new-event-button"></app-new-event-button> -->
 <!-- <app-paginator id="paginator" ></app-paginator> -->
+<div class="app-container">
+	<div class="app-header">
+		<app-toolbar></app-toolbar>
+	</div>
+	<div class="app-body">
+		<div class="body-item paginator-container" >
+			<app-paginator #paginator [activeDate]="grid.currentDate" (pageEvent)="grid.currentDate = $event"></app-paginator>
+		</div>
+		<div class="body-item timeline-container">
+			<app-timeline #timeline></app-timeline>
+		</div>
+		<div class="body-item grid-container">
+			<app-grid #grid></app-grid>
+		</div>
+		<app-new-event-button id="new-event-button" (click)="bookForm.open()"></app-new-event-button>
+		<app-book-form #bookForm id="book-form" [selection]="grid.selection" ></app-book-form>
+	</div>
+	<div class="app-footer">
+		foot
+	</div>
+</div>

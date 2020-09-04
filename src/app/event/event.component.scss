@@ -3,7 +3,7 @@
 .event-container{
 	position: absolute;
 	width: $grid-col-width;
-	height: 120px;
+	// height: 120px;
 	color: $dark-theme-font-color;
 	font-size: 1.05em;
 	z-index: 1;
@@ -12,7 +12,7 @@
 	&.active{
 		transform: translate(-50%, -50%);
 		transition: 200ms ease-in-out;
-		height: 250px;
+		// height: 250px;
 		width: 30vw;
 		box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 	}
@@ -23,6 +23,7 @@
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
 	transition: 200ms ease-in-out;
+	padding: 5px;
 }
 .event-container.active > .event-body {
 	height: 60%;
@@ -37,7 +38,7 @@
 	// border: 1px solid $dark-theme-font-color;
 	display: grid;
 	grid-template-columns: auto auto;
-	padding: 5px;
+
 	background-color: $mat-purple-600;
 	transition: 200ms ease-in-out;
 
@@ -56,15 +57,8 @@
 }
 
 .timespan{
-	grid-row: 1/2;
-	grid-column: 1/2;
-}
-.date{
-	grid-row: 1/2;
-	grid-column: 2/3;
-}
-.title{
-	grid-row: 2/3;
+	grid-row-start: 1;
+	grid-row-end: 2;
 	grid-column: 1/2;
 }
 .owner{

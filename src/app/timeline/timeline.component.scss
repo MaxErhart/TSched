@@ -1,0 +1,18 @@
+@import '../../styles';
+
+.timeline {
+	position: relative;
+	display: grid;
+	grid-auto-rows: calc(#{$grid-row-height}*2);
+	top: -$grid-row-height;
+	color: $dark-theme-font-color;
+}
+.timeline-row {
+	position: relative;
+	font-size: 1.4em;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	// top: -0.5em;
+}
+

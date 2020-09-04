@@ -79,7 +79,7 @@
 				  <mat-form-field appearance="outline" class="title-field form-field" [formGroup]="bookForm">
 				    <mat-label>Ereignis Titel</mat-label>
 				    <input matInput required formControlName="title" maxlength="25">
-				    <!-- <mat-error *ngIf="bookForm.get('title').invalid">{{getErrorMessage(formGroup.get('title'))}}</mat-error> -->
+				    <mat-error *ngIf="bookForm.get('title').invalid">{{getErrorMessage(bookForm.get('title'))}}</mat-error>
 				  </mat-form-field>
 				</div>
 				<div class="grid-item item-2">

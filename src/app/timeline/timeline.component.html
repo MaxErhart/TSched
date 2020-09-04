@@ -1,0 +1,8 @@
+<div class="timeline" #gridRef >
+	<div class="timeline-row" *ngFor="let row of timeline">
+		{{row | date:'H:mm'}}
+<!-- 			<div class="end-time" *ngIf="showEndTime">
+		{{row.endTime.houre}}:{{row.endTime.minute}}
+	</div> -->
+	</div>
+</div>

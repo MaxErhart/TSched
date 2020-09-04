@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-paginator',
@@ -7,13 +7,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class PaginatorComponent implements OnInit {
 
-	activeDate: Date;
+	@Input() activeDate: Date;
 	@Output() pageEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
-		this.activeDate = new Date();
-		console.log('init');
+		// this.activeDate = new Date();
   }
 
   pageChange(change){

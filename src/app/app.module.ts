@@ -32,6 +32,7 @@ import { TimepickerComponent } from './timepicker/timepicker.component';
 import { EventComponent } from './event/event.component';
 import { NewEventButtonComponent } from './new-event-button/new-event-button.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 export const DateFormats = {
         parse: {
@@ -54,7 +55,8 @@ export const DateFormats = {
     TimepickerComponent,
     EventComponent,
     NewEventButtonComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

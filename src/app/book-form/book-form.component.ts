@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { invalidTimeSpanValidator, pastDateValidator } from '../book-form.validators'
 import * as Moment from 'moment';
@@ -13,9 +13,10 @@ export class BookFormComponent implements OnInit {
 	primary600 = '#5600e818';
 	colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#58949C', Rot: '#F9665E', Pink: '#E18AAA'};
 	page2Ative = false;
-	active = true;
+	active = false;
 	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld'}
 	@Input() selection: {date: Date, startTime: string, endTime: string};
+  @Output() submit = new EventEmitter();
 	bookForm = new FormGroup(
 		{
 			date: new FormControl('', [Validators.required, pastDateValidator]),
@@ -68,17 +69,37 @@ export class BookFormComponent implements OnInit {
 	  	if(this.bookForm.valid){
 	  		console.log('pls implemet submit lol')
 		  	this.active = false;
-	  	}
+        this.page2Ative = false;
+        this.clearFields();
+	  	} else {
+        this.bookForm.get('title').markAsTouched();
+      }
   	} else {
   		this.active = false;
+      this.page2Ative = false;
+      this.clearFields();
   	}
+  }
+
+  clearFields(){
+    this.bookForm.get('date').setValue('');
+    this.bookForm.get('startTime').setValue('');
+    this.bookForm.get('endTime').setValue('');
+    this.bookForm.get('title').setValue('');
+    this.bookForm.get('color').setValue('');
+    this.bookForm.get('info').setValue('');
+    this.bookForm.get('date').markAsUntouched();
+    this.bookForm.get('startTime').markAsUntouched();
+    this.bookForm.get('endTime').markAsUntouched();
+    this.bookForm.get('title').markAsUntouched();
+    this.bookForm.get('color').markAsUntouched();
+    this.bookForm.get('info').markAsUntouched();
   }
 
   getErrorMessage(control){
   	if(control.errors){
 	  	return this.errorMessages[Object.keys(control.errors)[0]];
   	}
-
   }
 
 }
