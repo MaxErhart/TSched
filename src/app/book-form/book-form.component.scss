@@ -222,7 +222,8 @@
 
 .timepicker{
 	position: absolute;
-	top:-100%;
+	top:-100px;
+	left: -5px;
 	z-index: 4;
 }
 .timepicker-icon {

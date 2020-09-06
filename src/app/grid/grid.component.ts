@@ -23,9 +23,7 @@ export class GridComponent implements OnInit {
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-    // if(event.target.id != 'grid-item'){
-    //   this.clearSelection();
-    // }
+    event.stopPropagation();
   }
 
   ngOnInit(): void {
