@@ -1,10 +1,10 @@
 <div class="timepicker-container" [class.active]="active">
 	<div class="body">
 		<div class="houres" #houres (scroll)="onScroll($event)">
-			<div class="houre-item" *ngFor="let houre of houreList" (click)="selectedHoure = houre;" [class.selected]="houre == selectedHoure" >{{houre}}</div>
+			<div class="houre-item" *ngFor="let houre of houreList" (click)="selectHoure(houre)" [class.selected]="houre == selectedHoure" >{{houre}}</div>
 		</div>
 		<div class="minutes" #minutes>
-			<div class="minute-item" *ngFor="let minute of minuteList" (click)="selectedMinute = minute;" [class.selected]="minute == selectedMinute">{{minute}}</div>
+			<div class="minute-item" *ngFor="let minute of minuteList" (click)="selectMinute(minute)" [class.selected]="minute == selectedMinute">{{minute}}</div>
 		</div>
 	</div>
 	<div class="footer">

@@ -32,6 +32,16 @@ export class TimepickerComponent implements OnInit {
 		}
   }
 
+  selectHoure(houre){
+    event.stopPropagation();
+    this.selectedHoure = houre;
+  }
+
+  selectMinute(minute){
+    event.stopPropagation();
+    this.selectedMinute = minute;
+  }
+
   close(submit){
     event.stopPropagation();
   	this.active = false;
