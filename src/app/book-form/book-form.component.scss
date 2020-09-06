@@ -219,6 +219,11 @@
 		cursor: pointer;
 	}
 }
+
+.timepicker{
+	position: absolute;
+	z-index: 4;
+}
 .timepicker-icon {
 	transform: translate(2px, 0) scale(1.1);
 }

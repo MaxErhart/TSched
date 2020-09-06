@@ -46,7 +46,7 @@
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>
 						<mat-error *ngIf="bookForm.get('startTime').invalid">{{getErrorMessage(bookForm.get('startTime'))}}</mat-error>
-					  <app-timepicker #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					  <app-timepicker class="timepicker" #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 					</mat-form-field>
 					<mat-icon class="span-icon" >remove</mat-icon>
 					<mat-form-field appearance="outline" class="form-field timepicker-end" [formGroup]="bookForm">
@@ -56,7 +56,7 @@
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>
 						<mat-error *ngIf="bookForm.get('endTime').invalid">{{getErrorMessage(bookForm.get('endTime'))}}</mat-error>
-					  <app-timepicker #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					  <app-timepicker class="timepicker" #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 					</mat-form-field>
 				</div>
 

@@ -40,6 +40,8 @@ export class BookFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
   	// console.log(this.activePageCourt);
   	// console.log(Object.keys(this.bookForm.get('date').errors))
@@ -125,7 +127,7 @@ export class BookFormComponent implements OnInit {
     if(data.formGroup.get('color').value){
       color =  data.formGroup.get('color').value;
     }
-    return {startDate: startDate, endDate: endDate, title: data.formGroup.get('title').value, owner: 'Max Erhart', info: data.formGroup.get('info').value ? data.formGroup.get('date').value : 'Keine Beschreibung', weekly: data.formGroup.get('weekly').value, pageId: data.activePageCourtId, backgroundColor: color};
+    return {startDate: startDate, endDate: endDate, title: data.formGroup.get('title').value, owner: 'Max Erhart', info: data.formGroup.get('info').value ? data.formGroup.get('info').value : 'Keine Beschreibung', weekly: data.formGroup.get('weekly').value, pageId: data.activePageCourtId, backgroundColor: color};
   }
 
 }
