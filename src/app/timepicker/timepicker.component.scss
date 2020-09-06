@@ -5,7 +5,8 @@
 	display: flex;
 	flex-direction: column;
 	width: 125px;
-	height: 250px;
+	height: 200px;
+	// top: -50%;
 	border-radius: 4px;
 	background-color: #424242;
 	z-index: 4;
@@ -38,7 +39,7 @@
 }
 
 .houre-item{
-	min-height: calc(100/7*1%);
+	min-height: calc(100/5*1%);
 	justify-content: center;
 	align-items: center;
 	display: flex;
@@ -58,7 +59,7 @@
 }
 
 .minute-item{
-	height: calc(100/7*1%);
+	height: calc(100/5*1%);
 	width: 100%;
 	justify-content: center;
 	align-items: center;
