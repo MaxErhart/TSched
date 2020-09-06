@@ -1,6 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input, OnChanges } from '@angular/core';
 import { GridItem } from '../gridItem.interface'
-import {SettingService } from '../setting.service'
+import { SettingService } from '../setting.service'
+import {BookedEvent} from '../bookedEvent.interface'
+import { EventService } from '../event.service';
+
 
 @Component({
   selector: 'app-grid',
@@ -12,22 +15,38 @@ export class GridComponent implements OnInit {
 
 	grid: GridItem[][];
 	gridSetting: {rows: number, cols: number};
-  currentDate: Date;
   selection: {date: Date, startTime: string, endTime: string};
   selectionRowSpan: {start: number, end: number};
-  constructor(private _settingService: SettingService) { }
+  events: BookedEvent[];
+  @Input() activePageCourt: {id: number, name: string};
+  @Input() currentDate: Date;
+  constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-    // console.log(this.currentDate)
-    // console.log(event.target)
+    // if(event.target.id != 'grid-item'){
+    //   this.clearSelection();
+    // }
   }
 
   ngOnInit(): void {
-    console.log(this._settingService.getSettings())
     const settings = this._settingService.getSettings();
     this.gridSetting = settings.gridSettings;
-    this.currentDate = settings.initialDate;
   	this.grid = this.createNewGrid( this.gridSetting.rows, this.gridSetting.cols);
+    this.events = this._eventService.getEvents(this.currentDate, this.activePageCourt.id);
+  }
+
+  ngOnChanges(changes): void {
+    this.reloadEvents();
+  }
+
+  reloadEvents(){
+    delete this.events;
+    this.events = this._eventService.getEvents(this.currentDate, this.activePageCourt.id);
+  }
+
+  deleteEvent(event){
+    this._eventService.deleteEvent(event);
+    this.reloadEvents();
   }
 
   createNewGrid(rows, cols){
@@ -107,6 +126,19 @@ export class GridComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  clearSelection(event){
+    if(event.target.id != 'grid-item'){
+      delete this.selection;
+      delete this.selectionRowSpan;
+      for(let gridRow of this.grid){
+        for(let gridItem of gridRow){
+          gridItem.selected = false;
+        }
+      }
+    }
+
   }
 
   rowToTimeString(row){

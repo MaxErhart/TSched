@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {BookedEvent} from '../bookedEvent.interface'
 
 @Component({
   selector: 'app-event',
@@ -8,21 +9,34 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EventComponent implements OnInit {
 	active = false;
 
-	@Input() event = {startDate: new Date(), endDate: new Date(), title: 'Training', owner: 'Max Erhart', info: 'Herren Training', weekly: false};
+	@Input() event: BookedEvent;
+  @Output() deleteEvent = new EventEmitter();
   eventPosition: {top: number, height: number};
   gridRowHeight = 20;
-  height = 60;
+  height: number;
+  top: number;
   activeHeight = 250;
   constructor() { }
 
   ngOnInit(): void {
-
+    this.height = this.timeDifferenceToHeight(this.event.startDate, this.event.endDate);
+    this.top = this.startTimeToTop(this.event.startDate);
   }
 
   timeDifferenceToHeight(startTime, endTime){
-    let height = 0;
+    const tIncrement = 0.25;
+    const rowHeight = 20
+    const tStart = startTime.getHours() + startTime.getMinutes()/60;
+    const tEnd = endTime.getHours() + endTime.getMinutes()/60;
+    return ((tEnd - (tStart))/tIncrement)*rowHeight;
+  }
 
-    return height;
+  startTimeToTop(startTime){
+    const t0 = 8;
+    const tIncrement = 0.25;
+    const rowHeight = 20
+    const tStart = startTime.getHours() + startTime.getMinutes()/60;
+    return (tStart - t0)/tIncrement*rowHeight;
   }
 
   open(){
@@ -30,6 +44,10 @@ export class EventComponent implements OnInit {
   }
   close(){
   	this.active = false;
+  }
+
+  deleteMe(){
+    this.deleteEvent.emit(this.event);
   }
 
 }

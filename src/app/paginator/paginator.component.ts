@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {SettingService } from '../setting.service'
 
 @Component({
   selector: 'app-paginator',
@@ -7,12 +8,13 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class PaginatorComponent implements OnInit {
 
-	@Input() activeDate: Date;
+	activeDate: Date;
 	@Output() pageEvent = new EventEmitter();
-  constructor() { }
+  constructor(private _settingService: SettingService) { }
 
   ngOnInit(): void {
-		// this.activeDate = new Date();
+    const settings = this._settingService.getSettings();
+    this.activeDate = settings.initialDate;
   }
 
   pageChange(change){

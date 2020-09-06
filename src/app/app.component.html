@@ -4,24 +4,27 @@
 <!-- <app-timepicker id="timepicker" [selectedHoure]="houre" [selectedMinute]="minute" (submit)="houre = $event.houre; minute = $event.minute"></app-timepicker> -->
 <!-- <app-event id="event" ></app-event> -->
 <!-- <app-paginator id="paginator" ></app-paginator> -->
-<div class="app-container">
-	<div class="app-header">
-		<app-toolbar></app-toolbar>
+<div class="app-container" (click)="grid.clearSelection($event)">
+	<div class="app-header"  >
+		<app-toolbar #toolbar ></app-toolbar>
 	</div>
 	<div class="app-body">
-		<div class="body-item paginator-container" >
-			<app-paginator #paginator [activeDate]="grid.currentDate" (pageEvent)="grid.currentDate = $event"></app-paginator>
+		<div class="body-item paginator-container"  >
+			<app-paginator #paginator></app-paginator>
 		</div>
-		<div class="body-item timeline-container">
+		<div class="body-item timeline-container"  >
 			<app-timeline #timeline></app-timeline>
 		</div>
 		<div class="body-item grid-container">
-			<app-grid #grid></app-grid>
+			<app-grid #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate" ></app-grid>
 		</div>
-		<app-new-event-button id="new-event-button" (click)="bookForm.open()"></app-new-event-button>
-		<app-book-form #bookForm id="book-form" [selection]="grid.selection" ></app-book-form>
+<!-- 		<div class="body-item margin-right" (click)="grid.clearSelection()" >
+
+		</div> -->
 	</div>
-	<div class="app-footer">
+	<div class="app-footer" >
 		foot
 	</div>
 </div>
+<app-new-event-button id="new-event-button" (click)="bookForm.open()"></app-new-event-button>
+<app-book-form #bookForm id="book-form" [selection]="grid.selection" [activePageCourt]="toolbar.activePage" (submit)="grid.clearSelection($event); grid.reloadEvents()"></app-book-form>

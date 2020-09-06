@@ -1,20 +1,23 @@
 @import '../../styles';
 
+$active-event-width: 80vw;
+$active-event-max-width: 350px;
+
 .event-container{
-	position: absolute;
+	position: relative;
 	width: $grid-col-width;
-	// height: 120px;
 	color: $dark-theme-font-color;
 	font-size: 1.05em;
 	z-index: 1;
 	transition: 200ms ease-in-out;
 	overflow: hidden;
 	&.active{
-		transform: translate(-50%, -50%);
+		transform: translate(calc( ( #{$grid-col-width} * -1 + 1.4 * #{$grid-col-width}) / 2 * -1), -10%);
 		transition: 200ms ease-in-out;
-		// height: 250px;
-		width: 30vw;
+		width: calc(1.4 * #{$grid-col-width});
+		max-width: 90vw;
 		box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+		z-index: 2;
 	}
 }
 
@@ -39,7 +42,7 @@
 	display: grid;
 	grid-template-columns: auto auto;
 
-	background-color: $mat-purple-600;
+	// background-color: $mat-purple-600;
 	transition: 200ms ease-in-out;
 
 }

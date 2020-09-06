@@ -1,6 +1,6 @@
-<div class="event-container" [class.active]="active" (click)="open()" [style.height.px]="active ? activeHeight : height">
-	<div class="event-header">
-		<button mat-icon-button class="delete-button" *ngIf="active">
+<div class="event-container" [class.active]="active" (click)="open()" [style.height.px]="active ? activeHeight : height" [style.top.px]="active ? top : top">
+	<div class="event-header" [style.backgroundColor]="event.backgroundColor">
+		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>delete_outline</mat-icon>
     </button>
 		<div class="timespan header-item" >
@@ -9,7 +9,7 @@
 		<div class="date header-item" *ngIf="active || height>40">
 			{{event.startDate | date:'EEEE, d MMM, y'}}
 		</div>
-		<div class="title header-item" [style.gridRowStart]="active ? 2 : height<=40 ? 1 : 2" [style.gridColumnStart]="active ? 1 : height<=40 ? 2 : 1" >
+		<div class="title header-item" [style.gridRowStart]="active ? 2 : height<=40 ? 1 : 2" [style.gridColumnStart]="active ? 1 : height<=40 ? 2 : 1" [style.gridColumnEnd]="3" >
 			{{event.title | titlecase}}
 		</div>
 		<div class="owner header-item" *ngIf="active || height>40">

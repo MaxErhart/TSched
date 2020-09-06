@@ -16,6 +16,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -61,6 +62,7 @@ export const DateFormats = {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    MatMenuModule,
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,

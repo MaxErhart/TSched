@@ -2,6 +2,9 @@ import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@a
 import { FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { invalidTimeSpanValidator, pastDateValidator } from '../book-form.validators'
 import * as Moment from 'moment';
+import {BookedEvent} from '../bookedEvent.interface'
+import { EventService } from '../event.service';
+
 
 @Component({
   selector: 'app-book-form',
@@ -12,10 +15,12 @@ export class BookFormComponent implements OnInit {
 
 	primary600 = '#5600e818';
 	colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#58949C', Rot: '#F9665E', Pink: '#E18AAA'};
+
 	page2Ative = false;
 	active = false;
 	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld'}
 	@Input() selection: {date: Date, startTime: string, endTime: string};
+  @Input() activePageCourt: {id: number, name: string};
   @Output() submit = new EventEmitter();
 	bookForm = new FormGroup(
 		{
@@ -30,13 +35,13 @@ export class BookFormComponent implements OnInit {
 		{ validators: invalidTimeSpanValidator },
 	);
 
-  constructor() { }
+  constructor(private _eventService: EventService) { }
 
   ngOnInit(): void {
   }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-  	// console.log(this.bookForm.value)
+  	// console.log(this.activePageCourt);
   	// console.log(Object.keys(this.bookForm.get('date').errors))
   }
 
@@ -64,10 +69,12 @@ export class BookFormComponent implements OnInit {
   	this.active=true;
   }
 
-  close(submit){
+  close(submit, event?){
   	if(submit){
 	  	if(this.bookForm.valid){
-	  		console.log('pls implemet submit lol')
+        const eventIDless = this.generateIDlessEvent({formGroup: this.bookForm, activePageCourtId: this.activePageCourt.id})
+        this._eventService.addEvent(eventIDless)
+        this.submit.emit(event);
 		  	this.active = false;
         this.page2Ative = false;
         this.clearFields();
@@ -100,6 +107,25 @@ export class BookFormComponent implements OnInit {
   	if(control.errors){
 	  	return this.errorMessages[Object.keys(control.errors)[0]];
   	}
+  }
+
+  generateIDlessEvent(data){
+    const date = data.formGroup.get('date').value._d;
+    const start = data.formGroup.get('startTime').value.split(':');
+    const end = data.formGroup.get('endTime').value.split(':');
+    let startDate = new Date(date);
+    startDate.setHours(+start[0]);
+    startDate.setMinutes(+start[1]);
+    startDate.setSeconds(0);
+    let endDate = new Date(date);
+    endDate.setHours(+end[0]);
+    endDate.setMinutes(+end[1]);
+    endDate.setSeconds(0);
+    let color = '#5600e8';
+    if(data.formGroup.get('color').value){
+      color =  data.formGroup.get('color').value;
+    }
+    return {startDate: startDate, endDate: endDate, title: data.formGroup.get('title').value, owner: 'Max Erhart', info: data.formGroup.get('info').value ? data.formGroup.get('date').value : 'Keine Beschreibung', weekly: data.formGroup.get('weekly').value, pageId: data.activePageCourtId, backgroundColor: color};
   }
 
 }

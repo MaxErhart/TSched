@@ -27,6 +27,12 @@
 	grid-column: 1/2;
 	// border: 1px solid red;
 }
+
+.margin-right{
+	grid-row: 2/3;
+	grid-column: 3/4;
+}
+
 .grid-container{
 	grid-row: 2/3;
 	grid-column: 2/3;
@@ -42,10 +48,17 @@
 	position: fixed;
 	bottom: 5%;
 	left: calc(50% + #{$grid-col-width}/2);
+	z-index: 1;
 }
 #book-form{
 	position: fixed;
-	top: 50%;
+	top: 250px;
 	left: 50%;
 	z-index: 3;
+}
+
+#event{
+	position: absolute;
+	left:40%;
+	top: 30%;
 }
