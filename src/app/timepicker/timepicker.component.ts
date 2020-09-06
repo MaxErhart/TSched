@@ -33,6 +33,7 @@ export class TimepickerComponent implements OnInit {
   }
 
   close(submit){
+    event.stopPropagation();
   	this.active = false;
   	if(submit && this.selectedHoure && this.selectedMinute){
   		this.submit.emit({houre: this.selectedHoure, minute: this.selectedMinute})
@@ -40,10 +41,12 @@ export class TimepickerComponent implements OnInit {
   }
 
   open(){
+    event.stopPropagation();
   	this.active = true;
   }
 
   toggle(){
+    event.stopPropagation();
     this.active ? this.close(false) : this.open();
   }
 

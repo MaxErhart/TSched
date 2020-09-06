@@ -215,6 +215,9 @@
 	&.active{
 		color: $mat-purple-600;
 	}
+	&:hover{
+		cursor: pointer;
+	}
 }
 .timepicker-icon {
 	transform: translate(2px, 0) scale(1.1);
