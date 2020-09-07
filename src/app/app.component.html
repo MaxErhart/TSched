@@ -5,7 +5,7 @@
 <!-- <app-event id="event" ></app-event> -->
 <!-- <app-paginator id="paginator" ></app-paginator> -->
 <div class="app-container" (click)="grid.clearSelection($event)">
-	<div class="app-header"  >
+	<div class="app-header">
 		<app-toolbar #toolbar ></app-toolbar>
 	</div>
 	<div class="app-body">
@@ -16,7 +16,8 @@
 			<app-timeline #timeline></app-timeline>
 		</div>
 		<div class="body-item grid-container">
-			<app-grid #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate" ></app-grid>
+			<app-grid class="app-grid" #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate"></app-grid>
+			<!-- <app-grid class="app-grid" #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate" [style.left.px]="dragPosition.x + 250" *ngIf="dragActive"></app-grid> -->
 		</div>
 	</div>
 	<div class="app-footer" >

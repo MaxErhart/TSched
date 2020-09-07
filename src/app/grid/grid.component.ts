@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, HostListener, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { GridItem } from '../gridItem.interface'
 import { SettingService } from '../setting.service'
 import {BookedEvent} from '../bookedEvent.interface'
@@ -12,6 +12,17 @@ import { EventService } from '../event.service';
 })
 export class GridComponent implements OnInit {
 
+  gridColWidth = 250;
+
+  dragActive = false;
+  dragStart = {x: 0, y: 0};
+  grids = [{x: 0}];
+  newGrid: GridItem[][];
+  sign = 0;
+  n = 0;
+  // position = {x: 0, y: 0};
+  // velocity: number;
+  // time: number;
 
 	grid: GridItem[][];
 	gridSetting: {rows: number, cols: number};
@@ -20,10 +31,78 @@ export class GridComponent implements OnInit {
   events: BookedEvent[];
   @Input() activePageCourt: {id: number, name: string};
   @Input() currentDate: Date;
+  dragPosition = {x: 0, y: 0};
+  dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
+    // console.log('click: ', event);
+  }
+
+  @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
+    this.dragStart = {x: event.screenX, y: event.screenY};
+    this.dragActive = true;
+
+
+  }
+
+  @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
     event.stopPropagation();
+    event.preventDefault();
+    if(event.buttons == 1 && event.button == 0){
+      this.dragPosition = {x: event.screenX - this.dragStart.x , y: 0};
+
+      if(event.screenX - this.dragStart.x < 0){
+
+        if(this.sign > 0){
+          this.grids.pop();
+        }
+
+        if(this.grids.length < 2){
+          this.grids.push({x: 250})
+        }
+        this.sign = -1;
+
+      } else {
+
+        this.dragPosition = {x: event.screenX - this.dragStart.x, y: 0};
+        if(this.sign < 0){
+          this.grids.pop();
+        }
+
+        if(this.grids.length < 2){
+          this.grids.push({x: -250})
+        }
+        this.sign = 1;
+      }
+
+
+    }
+
+  }
+
+  @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
+    event.stopPropagation();
+
+    const n = ~~(Math.ceil(event.screenX - this.dragStart.x) / 150);
+
+    if(n == 0){
+      this.grids = [{x: 0}]
+      this.dragPosition = {x:0, y:0};
+    } else if(n < 0){
+      this.grids = [{x: 0}]
+      // this.grids = this.grids.slice(1,2);
+      this.dragPosition = {x:0, y:0};
+    } else{
+      this.grids = [{x: 0}]
+      // this.grids = this.grids.slice(1,2);
+      this.dragPosition = {x:0, y:0};
+    }
+    console.log(n)
+
+
+    this.sign = 0;
+    this.dragActive = false;
   }
 
   ngOnInit(): void {

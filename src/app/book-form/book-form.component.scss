@@ -24,7 +24,7 @@
 	grid-row: 1/2;
 	position: relative;
 	width: 100%;
-	background-color: $mat-purple-600;
+	background-color: $mat-indigo-500;
 	padding: 5px;
 	display: grid;
 	grid-template-rows: auto auto auto;
@@ -213,7 +213,7 @@
 	justify-content: center;
 	border-radius: 50px;
 	&.active{
-		color: $mat-purple-600;
+		color: $mat-indigo-500;
 	}
 	&:hover{
 		cursor: pointer;
