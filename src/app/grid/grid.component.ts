@@ -39,14 +39,14 @@ export class GridComponent implements OnInit {
     // console.log('click: ', event);
   }
 
-  @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
+  @HostListener('document:touchstart', ['$event']) documentMD(event: MouseEvent) {
     this.dragStart = {x: event.screenX, y: event.screenY};
     this.dragActive = true;
 
 
   }
 
-  @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
+  @HostListener('document:touchmove', ['$event']) documentMM(event: MouseEvent) {
     event.stopPropagation();
     event.preventDefault();
     if(event.buttons == 1 && event.button == 0){
@@ -81,7 +81,7 @@ export class GridComponent implements OnInit {
 
   }
 
-  @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
+  @HostListener('document:touchend', ['$event']) documentMU(event: MouseEvent) {
     event.stopPropagation();
 
     const n = ~~(Math.ceil(event.screenX - this.dragStart.x) / 150);
