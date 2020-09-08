@@ -43,81 +43,75 @@ export class GridComponent implements OnInit {
   dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
-  // @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-    // this.clicky = event.screenX;
-    // console.log('whut')
-    // this.state == "initial" ? this.state = "final" :this.state = "initial";
+  // @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
+  //   this.dragStart = {x: event.screenX, y: event.screenY};
+
+  //   this.dragActive = true;
+
+
+
   // }
 
-  @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
-    this.dragStart = {x: event.screenX, y: event.screenY};
+  // @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
 
-    this.dragActive = true;
+  //   event.stopPropagation();
+  //   event.preventDefault();
 
+  //   if(this.dragActive){
+  //     this.dragPosition = {x: event.screenX - this.dragStart.x , y: 0};
+  //     const opacity = Math.abs((event.screenX - this.dragStart.x))/250;
+  //     if(event.screenX - this.dragStart.x < 0){
 
+  //       if(this.sign > 0){
+  //         this.grids.pop();
+  //       }
 
-  }
+  //       if(this.grids.length < 2){
+  //         this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
+  //       }
 
-  @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
+  //       this.grids[1].opacity = opacity*opacity*opacity*opacity*opacity*opacity
+  //       this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
 
-    event.stopPropagation();
-    event.preventDefault();
+  //       this.sign = -1;
+  //     } else {
+  //       this.dragPosition = {x: event.screenX - this.dragStart.x, y: 0};
+  //       if(this.sign < 0){
+  //         this.grids.pop();
+  //       }
 
-    if(this.dragActive){
-      this.dragPosition = {x: event.screenX - this.dragStart.x , y: 0};
-      const opacity = Math.abs((event.screenX - this.dragStart.x))/250;
-      if(event.screenX - this.dragStart.x < 0){
+  //       if(this.grids.length < 2){
+  //         this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
+  //       }
+  //       this.grids[1].opacity = opacity
+  //       this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
+  //       this.sign = 1;
+  //     }
+  //   }
+  // }
 
-        if(this.sign > 0){
-          this.grids.pop();
-        }
+  // @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
+  //   event.stopPropagation();
 
-        if(this.grids.length < 2){
-          this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
-        }
+  //   const n = ~~(Math.ceil(event.screenX - this.dragStart.x) / 150);
+  //   if(n < 0){
+  //     this.grids[0].xFinal = -250;
+  //     this.grids[1].xFinal = 0;
+  //     this.grids[0].opacityFinal = 0;
+  //     this.grids[1].opacityFinal = 1;
+  //   } else if(n>0){
+  //     this.grids[0].xFinal = 250;
+  //     this.grids[1].xFinal = 0;
+  //     this.grids[0].opacityFinal = 0;
+  //     this.grids[1].opacityFinal = 1;
+  //   }
 
-        this.grids[1].opacity = opacity*opacity*opacity*opacity*opacity*opacity
-        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
+  //   this.clicky = {x: this.dragPosition.x};
 
-        this.sign = -1;
-      } else {
-        this.dragPosition = {x: event.screenX - this.dragStart.x, y: 0};
-        if(this.sign < 0){
-          this.grids.pop();
-        }
-
-        if(this.grids.length < 2){
-          this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
-        }
-        this.grids[1].opacity = opacity
-        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
-        this.sign = 1;
-      }
-    }
-  }
-
-  @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
-    event.stopPropagation();
-
-    const n = ~~(Math.ceil(event.screenX - this.dragStart.x) / 150);
-    if(n < 0){
-      this.grids[0].xFinal = -250;
-      this.grids[1].xFinal = 0;
-      this.grids[0].opacityFinal = 0;
-      this.grids[1].opacityFinal = 1;
-    } else if(n>0){
-      this.grids[0].xFinal = 250;
-      this.grids[1].xFinal = 0;
-      this.grids[0].opacityFinal = 0;
-      this.grids[1].opacityFinal = 1;
-    }
-
-    this.clicky = {x: this.dragPosition.x};
-
-    this.state = 'initial';
-    this.sign = 0;
-    this.dragActive = false;
-  }
+  //   this.state = 'initial';
+  //   this.sign = 0;
+  //   this.dragActive = false;
+  // }
 
   animationEnd(event){
     if(event.fromState == 'initial' && event.toState == 'final'){
@@ -140,47 +134,44 @@ export class GridComponent implements OnInit {
   }
 
   @HostListener('document:touchmove', ['$event']) documentTM(event: TouchEvent) {
-
-    event.stopPropagation();
-
-
     if(this.dragActive){
-      this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
-      const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
-      if(event.touches[0].screenX - this.dragStart.x < 0){
+      setTimeout(() => {
+        this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
+        const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
+        if(event.touches[0].screenX - this.dragStart.x < 0){
 
-        if(this.sign > 0){
-          this.grids.pop();
+          if(this.sign > 0){
+            this.grids.pop();
+          }
+
+          if(this.grids.length < 2){
+            this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
+          }
+
+          this.grids[1].opacity = opacity;
+          this.grids[0].opacity = 1 - opacity;
+
+          this.sign = -1;
+        } else {
+          this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
+          if(this.sign < 0){
+            this.grids.pop();
+          }
+
+          if(this.grids.length < 2){
+            this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
+          }
+          this.grids[1].opacity = opacity;
+          this.grids[0].opacity = 1 - opacity;
+          this.sign = 1;
         }
+        this.touch = event;
+      }, 100)
 
-        if(this.grids.length < 2){
-          this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
-        }
-
-        this.grids[1].opacity = opacity*opacity*opacity*opacity*opacity*opacity
-        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
-
-        this.sign = -1;
-      } else {
-        this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
-        if(this.sign < 0){
-          this.grids.pop();
-        }
-
-        if(this.grids.length < 2){
-          this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
-        }
-        this.grids[1].opacity = opacity
-        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
-        this.sign = 1;
-      }
-      this.touch = event;
     }
   }
 
   @HostListener('document:touchend', ['$event']) documentTE(event: TouchEvent) {
-    event.stopPropagation();
-
     const n = ~~(Math.ceil(this.touch.touches[0].screenX - this.dragStart.x) / 150);
     if(n < 0){
       this.grids[0].xFinal = -250;
