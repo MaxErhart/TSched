@@ -18,6 +18,6 @@ export const TransitionAnimation = [
 				}),
 				{params: {x: 0, opacity: 1}}
 			),
-			transition('initial => final', animate('1000ms ease-out')),
+			transition('initial => final', animate('100ms ease-out')),
 		])
 ]

@@ -27,9 +27,6 @@ export class GridComponent implements OnInit {
   dragStart = {x: 0, y: 0};
   grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
   sign = 0;
-  touch: TouchEvent;
-
-
 
 
 	grid: GridItem[][];
@@ -118,7 +115,7 @@ export class GridComponent implements OnInit {
       this.grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
       this.dragPosition = {x:0, y:0};
       this.animStart = {x:0};
-
+      this.sign=0;
     } else if(event.fromState == 'final' && event.toState == 'initial'){
       this.state = 'final';
     }
@@ -139,18 +136,16 @@ export class GridComponent implements OnInit {
         this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
         const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
         if(event.touches[0].screenX - this.dragStart.x < 0){
-
           if(this.sign > 0){
             this.grids.pop();
           }
 
           if(this.grids.length < 2){
             this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
+          } else {
+            this.grids[1].opacity = opacity;
+            this.grids[0].opacity = 1 - opacity;
           }
-
-          this.grids[1].opacity = opacity;
-          this.grids[0].opacity = 1 - opacity;
-
           this.sign = -1;
         } else {
           this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
@@ -160,19 +155,19 @@ export class GridComponent implements OnInit {
 
           if(this.grids.length < 2){
             this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
+          } else {
+            this.grids[1].opacity = opacity;
+            this.grids[0].opacity = 1 - opacity;
           }
-          this.grids[1].opacity = opacity;
-          this.grids[0].opacity = 1 - opacity;
+
           this.sign = 1;
         }
-        this.touch = event;
-      }, 300)
-
+      }, 50)
     }
   }
 
   @HostListener('document:touchend', ['$event']) documentTE(event: TouchEvent) {
-    const n = ~~(Math.ceil(this.touch.touches[0].screenX - this.dragStart.x) / 150);
+    const n = ~~(Math.ceil(this.dragPosition.x) / 150);
     if(n < 0){
       this.grids[0].xFinal = -250;
       this.grids[1].xFinal = 0;
