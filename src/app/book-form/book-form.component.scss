@@ -4,7 +4,7 @@
 .book-form-container{
 	position: absolute;
 	display: grid;
-	grid-template-rows: 30% 70%;
+	grid-template-rows: 28% 72%;
 	grid-template-columns: 100%;
 	width: 345px;
 	min-width: 345px;
@@ -43,7 +43,7 @@
 
 .header-item {
 	height: 1em;
-	font-size: 1.4em;
+	font-size: 1.25em;
 	white-space: nowrap;
 }
 .page-name{
@@ -134,7 +134,7 @@
 	position: relative;
 	width: 100%;
 	border-bottom: 2px solid $mat-gray-600;
-	padding: 5px;
+	padding: 2px;
 	color: $font-color;
 	background-color: $mat-gray-750;
 }
