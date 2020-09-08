@@ -3,26 +3,34 @@ import { GridItem } from '../gridItem.interface'
 import { SettingService } from '../setting.service'
 import {BookedEvent} from '../bookedEvent.interface'
 import { EventService } from '../event.service';
-
+import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { TransitionAnimation } from '../transition.animation'
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  styleUrls: ['./grid.component.scss'],
+  animations: [TransitionAnimation]
 })
 export class GridComponent implements OnInit {
 
   gridColWidth = 250;
 
+
+  //animations
+  state = "final";
+  animStart = {x: 0};
+  clicky = {x: 0};
+
+  //grid movement
   dragActive = false;
   dragStart = {x: 0, y: 0};
-  grids = [{x: 0}];
-  newGrid: GridItem[][];
+  grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
   sign = 0;
-  n = 0;
-  // position = {x: 0, y: 0};
-  // velocity: number;
-  // time: number;
+  touch: TouchEvent;
+
+
+
 
 	grid: GridItem[][];
 	gridSetting: {rows: number, cols: number};
@@ -35,23 +43,29 @@ export class GridComponent implements OnInit {
   dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
-  @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-    // console.log('click: ', event);
-  }
+  // @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
+    // this.clicky = event.screenX;
+    // console.log('whut')
+    // this.state == "initial" ? this.state = "final" :this.state = "initial";
+  // }
 
-  @HostListener('document:touchstart', ['$event']) documentMD(event: MouseEvent) {
+  @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
     this.dragStart = {x: event.screenX, y: event.screenY};
+
     this.dragActive = true;
 
 
+
   }
 
-  @HostListener('document:touchmove', ['$event']) documentMM(event: MouseEvent) {
+  @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
+
     event.stopPropagation();
     event.preventDefault();
-    if(event.buttons == 1 && event.button == 0){
-      this.dragPosition = {x: event.screenX - this.dragStart.x , y: 0};
 
+    if(this.dragActive){
+      this.dragPosition = {x: event.screenX - this.dragStart.x , y: 0};
+      const opacity = Math.abs((event.screenX - this.dragStart.x))/250;
       if(event.screenX - this.dragStart.x < 0){
 
         if(this.sign > 0){
@@ -59,48 +73,130 @@ export class GridComponent implements OnInit {
         }
 
         if(this.grids.length < 2){
-          this.grids.push({x: 250})
+          this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
         }
+
+        this.grids[1].opacity = opacity*opacity*opacity*opacity*opacity*opacity
+        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
+
         this.sign = -1;
-
       } else {
-
         this.dragPosition = {x: event.screenX - this.dragStart.x, y: 0};
         if(this.sign < 0){
           this.grids.pop();
         }
 
         if(this.grids.length < 2){
-          this.grids.push({x: -250})
+          this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
         }
+        this.grids[1].opacity = opacity
+        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
         this.sign = 1;
       }
-
-
     }
-
   }
 
-  @HostListener('document:touchend', ['$event']) documentMU(event: MouseEvent) {
+  @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
     event.stopPropagation();
 
     const n = ~~(Math.ceil(event.screenX - this.dragStart.x) / 150);
-
-    if(n == 0){
-      this.grids = [{x: 0}]
-      this.dragPosition = {x:0, y:0};
-    } else if(n < 0){
-      this.grids = [{x: 0}]
-      // this.grids = this.grids.slice(1,2);
-      this.dragPosition = {x:0, y:0};
-    } else{
-      this.grids = [{x: 0}]
-      // this.grids = this.grids.slice(1,2);
-      this.dragPosition = {x:0, y:0};
+    if(n < 0){
+      this.grids[0].xFinal = -250;
+      this.grids[1].xFinal = 0;
+      this.grids[0].opacityFinal = 0;
+      this.grids[1].opacityFinal = 1;
+    } else if(n>0){
+      this.grids[0].xFinal = 250;
+      this.grids[1].xFinal = 0;
+      this.grids[0].opacityFinal = 0;
+      this.grids[1].opacityFinal = 1;
     }
-    console.log(n)
+
+    this.clicky = {x: this.dragPosition.x};
+
+    this.state = 'initial';
+    this.sign = 0;
+    this.dragActive = false;
+  }
+
+  animationEnd(event){
+    if(event.fromState == 'initial' && event.toState == 'final'){
+      this.grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
+      this.dragPosition = {x:0, y:0};
+      this.animStart = {x:0};
+
+    } else if(event.fromState == 'final' && event.toState == 'initial'){
+      this.state = 'final';
+    }
+  }
+
+  @HostListener('document:touchstart', ['$event']) documentTS(event: TouchEvent) {
+    this.dragStart = {x: event.touches[0].screenX, y: event.touches[0].screenY};
+
+    this.dragActive = true;
 
 
+
+  }
+
+  @HostListener('document:touchmove', ['$event']) documentTM(event: TouchEvent) {
+
+    event.stopPropagation();
+
+
+    if(this.dragActive){
+      this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
+      const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
+      if(event.touches[0].screenX - this.dragStart.x < 0){
+
+        if(this.sign > 0){
+          this.grids.pop();
+        }
+
+        if(this.grids.length < 2){
+          this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
+        }
+
+        this.grids[1].opacity = opacity*opacity*opacity*opacity*opacity*opacity
+        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
+
+        this.sign = -1;
+      } else {
+        this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
+        if(this.sign < 0){
+          this.grids.pop();
+        }
+
+        if(this.grids.length < 2){
+          this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
+        }
+        this.grids[1].opacity = opacity
+        this.grids[0].opacity = 1 - opacity*opacity*opacity*opacity*opacity*opacity
+        this.sign = 1;
+      }
+      this.touch = event;
+    }
+  }
+
+  @HostListener('document:touchend', ['$event']) documentTE(event: TouchEvent) {
+    event.stopPropagation();
+
+    const n = ~~(Math.ceil(this.touch.touches[0].screenX - this.dragStart.x) / 150);
+    if(n < 0){
+      this.grids[0].xFinal = -250;
+      this.grids[1].xFinal = 0;
+      this.grids[0].opacityFinal = 0;
+      this.grids[1].opacityFinal = 1;
+    } else if(n>0){
+      this.grids[0].xFinal = 250;
+      this.grids[1].xFinal = 0;
+      this.grids[0].opacityFinal = 0;
+      this.grids[1].opacityFinal = 1;
+    }
+
+    this.clicky = {x: this.dragPosition.x};
+
+    this.state = 'initial';
     this.sign = 0;
     this.dragActive = false;
   }
@@ -115,6 +211,7 @@ export class GridComponent implements OnInit {
   ngOnChanges(changes): void {
     this.reloadEvents();
   }
+
 
   reloadEvents(){
     delete this.events;

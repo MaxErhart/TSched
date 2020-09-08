@@ -1,17 +1,13 @@
 <div class="grid-container">
-	<div class="grid-body" #gridBody [style.left.px]="dragPosition.x + gridi.x" *ngFor="let gridi of grids">
+	<div class="grid-body" #gridBody [style.left.px]="dragPosition.x + gridi.x" *ngFor="let gridi of grids" [style.opacity]="gridi.opacity" [@TransitionAnimation]="{value: state, params: {x: state=='initial' ? clicky.x + gridi.x : gridi.xFinal, opacity: state=='initial' ? gridi.opacity : gridi.opacityFinal}}"  (@TransitionAnimation.done)="animationEnd($event)">
+	<!-- <div class="grid-body" #gridBody [style.left.px]="dragPosition.x + gridi.x" *ngFor="let gridi of grids" [style.opacity]="gridi.opacity" > -->
 		<div class="grid-row" *ngFor="let row of grid">
 	<!-- 		<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" ></div> -->
 			<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked"></div>
 		</div>
 	</div>
 
-<!-- 	<div class="grid-body" #gridBody [style.left.px]="dragPosition.x + 250" >
-		<div class="grid-row" *ngFor="let row of grid">
-			<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" ></div>
-			<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked"></div>
-		</div>
-	</div> -->
+
 
 </div>
 
