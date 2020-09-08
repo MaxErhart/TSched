@@ -18,9 +18,9 @@ export class PaginatorComponent implements OnInit {
   }
 
   pageChange(change){
-  	var newDate = new Date();
-  	newDate.setDate(this.activeDate.getDate() + change)
-  	this.activeDate = newDate;
+    this.activeDate.setDate(this.activeDate.getDate() + change)
+    const newDate = new Date(this.activeDate.getFullYear(), this.activeDate.getMonth(), this.activeDate.getDate())
+    this.activeDate = newDate;
   	this.pageEvent.emit(this.activeDate);
   }
 

@@ -42,7 +42,11 @@ export class BookFormComponent implements OnInit {
   }
 
 
-
+  @HostListener('document:keypress', ['$event']) documentClick(event: KeyboardEvent) {
+    if(event.charCode == 13){
+      this.close(true, {target: {id: 'submit'}})
+    }
+  }
   // @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
   // }
 
