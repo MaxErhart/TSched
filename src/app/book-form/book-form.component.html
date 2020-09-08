@@ -41,7 +41,7 @@
 				<div class="grid-item item-3">
 					<mat-form-field appearance="outline" class="form-field timepicker-start" [formGroup]="bookForm">
 					  <mat-label>Startzeitpunkt</mat-label>
-					  <input matInput formControlName="startTime" required>
+					  <input matInput formControlName="startTime"  required readonly>
 						<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>
@@ -51,7 +51,7 @@
 					<mat-icon class="span-icon" >remove</mat-icon>
 					<mat-form-field appearance="outline" class="form-field timepicker-end" [formGroup]="bookForm">
 					  <mat-label>Endzeitpunkt</mat-label>
-					  <input matInput formControlName="endTime" required>
+					  <input matInput formControlName="endTime" required readonly>
 						<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
 							<mat-icon class="timepicker-icon" >access_time</mat-icon>
 						</div>

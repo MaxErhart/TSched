@@ -10,7 +10,7 @@ import { TransitionAnimation } from '../transition.animation'
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
-  animations: [TransitionAnimation]
+  // animations: [TransitionAnimation]
 })
 export class GridComponent implements OnInit {
 
@@ -18,15 +18,15 @@ export class GridComponent implements OnInit {
 
 
   //animations
-  state = "final";
-  animStart = {x: 0};
-  clicky = {x: 0};
+  // state = "final";
+  // animStart = {x: 0};
+  // clicky = {x: 0};
 
   //grid movement
-  dragActive = false;
-  dragStart = {x: 0, y: 0};
-  grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
-  sign = 0;
+  // dragActive = false;
+  // dragStart = {x: 0, y: 0};
+  // grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
+  // sign = 0;
 
 
 	grid: GridItem[][];
@@ -39,6 +39,11 @@ export class GridComponent implements OnInit {
   dragPosition = {x: 0, y: 0};
   dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
+
+
+  // @HostListener('document:click', ['$event']) documentMD(event: MouseEvent) {
+  //   console.log(this.grid)
+  // }
 
   // @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
   //   this.dragStart = {x: event.screenX, y: event.screenY};
@@ -110,82 +115,82 @@ export class GridComponent implements OnInit {
   //   this.dragActive = false;
   // }
 
-  animationEnd(event){
-    if(event.fromState == 'initial' && event.toState == 'final'){
-      this.grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
-      this.dragPosition = {x:0, y:0};
-      this.animStart = {x:0};
-      this.sign=0;
-    } else if(event.fromState == 'final' && event.toState == 'initial'){
-      this.state = 'final';
-    }
-  }
+  // animationEnd(event){
+  //   if(event.fromState == 'initial' && event.toState == 'final'){
+  //     this.grids = [{x: 0, opacity: 1, xFinal: 0, opacityFinal: 1}];
+  //     this.dragPosition = {x:0, y:0};
+  //     this.animStart = {x:0};
+  //     this.sign=0;
+  //   } else if(event.fromState == 'final' && event.toState == 'initial'){
+  //     this.state = 'final';
+  //   }
+  // }
 
-  @HostListener('document:touchstart', ['$event']) documentTS(event: TouchEvent) {
-    this.dragStart = {x: event.touches[0].screenX, y: event.touches[0].screenY};
+  // @HostListener('document:touchstart', ['$event']) documentTS(event: TouchEvent) {
+  //   this.dragStart = {x: event.touches[0].screenX, y: event.touches[0].screenY};
 
-    this.dragActive = true;
+  //   this.dragActive = true;
 
 
 
-  }
+  // }
 
-  @HostListener('document:touchmove', ['$event']) documentTM(event: TouchEvent) {
-    if(this.dragActive){
-      setTimeout(() => {
-        this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
-        const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
-        if(event.touches[0].screenX - this.dragStart.x < 0){
-          if(this.sign > 0){
-            this.grids.pop();
-          }
+  // @HostListener('document:touchmove', ['$event']) documentTM(event: TouchEvent) {
+  //   if(this.dragActive){
+  //     setTimeout(() => {
+  //       this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x , y: 0};
+  //       const opacity = Math.abs((event.touches[0].screenX - this.dragStart.x))/250;
+  //       if(event.touches[0].screenX - this.dragStart.x < 0){
+  //         if(this.sign > 0){
+  //           this.grids.pop();
+  //         }
 
-          if(this.grids.length < 2){
-            this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
-          } else {
-            this.grids[1].opacity = opacity;
-            this.grids[0].opacity = 1 - opacity;
-          }
-          this.sign = -1;
-        } else {
-          this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
-          if(this.sign < 0){
-            this.grids.pop();
-          }
+  //         if(this.grids.length < 2){
+  //           this.grids.push({x: 250, opacity: 0, xFinal: 250, opacityFinal: 0})
+  //         } else {
+  //           this.grids[1].opacity = opacity;
+  //           this.grids[0].opacity = 1 - opacity;
+  //         }
+  //         this.sign = -1;
+  //       } else {
+  //         this.dragPosition = {x: event.touches[0].screenX - this.dragStart.x, y: 0};
+  //         if(this.sign < 0){
+  //           this.grids.pop();
+  //         }
 
-          if(this.grids.length < 2){
-            this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
-          } else {
-            this.grids[1].opacity = opacity;
-            this.grids[0].opacity = 1 - opacity;
-          }
+  //         if(this.grids.length < 2){
+  //           this.grids.push({x: -250, opacity: 0, xFinal: -250, opacityFinal: 0})
+  //         } else {
+  //           this.grids[1].opacity = opacity;
+  //           this.grids[0].opacity = 1 - opacity;
+  //         }
 
-          this.sign = 1;
-        }
-      }, 50)
-    }
-  }
+  //         this.sign = 1;
+  //       }
+  //     }, 50)
+  //   }
+  // }
 
-  @HostListener('document:touchend', ['$event']) documentTE(event: TouchEvent) {
-    const n = ~~(Math.ceil(this.dragPosition.x) / 150);
-    if(n < 0){
-      this.grids[0].xFinal = -250;
-      this.grids[1].xFinal = 0;
-      this.grids[0].opacityFinal = 0;
-      this.grids[1].opacityFinal = 1;
-    } else if(n>0){
-      this.grids[0].xFinal = 250;
-      this.grids[1].xFinal = 0;
-      this.grids[0].opacityFinal = 0;
-      this.grids[1].opacityFinal = 1;
-    }
+  // @HostListener('document:touchend', ['$event']) documentTE(event: TouchEvent) {
+  //   const n = ~~(Math.ceil(this.dragPosition.x) / 150);
+  //   if(n < 0){
+  //     this.grids[0].xFinal = -250;
+  //     this.grids[1].xFinal = 0;
+  //     this.grids[0].opacityFinal = 0;
+  //     this.grids[1].opacityFinal = 1;
+  //   } else if(n>0){
+  //     this.grids[0].xFinal = 250;
+  //     this.grids[1].xFinal = 0;
+  //     this.grids[0].opacityFinal = 0;
+  //     this.grids[1].opacityFinal = 1;
+  //   }
 
-    this.clicky = {x: this.dragPosition.x};
+  //   this.clicky = {x: this.dragPosition.x};
 
-    this.state = 'initial';
-    this.sign = 0;
-    this.dragActive = false;
-  }
+  //   this.state = 'initial';
+  //   this.sign = 0;
+  //   this.dragActive = false;
+  // }
 
   ngOnInit(): void {
     const settings = this._settingService.getSettings();

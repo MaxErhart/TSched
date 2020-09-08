@@ -7,7 +7,7 @@
 .grid-body {
 	box-sizing: border-box;
 	display: grid;
-	position: relative;
+	position: absolute;
 	grid-template-columns: $grid-col-width;
 	grid-auto-rows: $grid-row-height;
 	grid-row: 1/2;

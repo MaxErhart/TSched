@@ -8,7 +8,7 @@
 	grid-template-columns: 100%;
 	width: 345px;
 	min-width: 345px;
-	height: 320px;
+	height: 300px;
 	min-height: 300px;
 	border-radius: 4px;
 	transform: translate(-50%, -50%);
@@ -150,6 +150,7 @@
 
 .grid-item{
 	height: 100%;
+	position: relative;
 	display: flex;
 	align-items:center;
 	justify-content: flex-start;

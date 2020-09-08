@@ -14,19 +14,19 @@ import { EventService } from '../event.service';
 export class BookFormComponent implements OnInit {
 
 	primary600 = '#5600e818';
-	colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#58949C', Rot: '#F9665E', Pink: '#E18AAA'};
+	colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#3f51b5', Rot: '#F9665E', Pink: '#E18AAA'};
 
 	page2Ative = false;
 	active = false;
-	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld'}
+	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld', pattern: 'Uhrzeit ungültig'}
 	@Input() selection: {date: Date, startTime: string, endTime: string};
   @Input() activePageCourt: {id: number, name: string};
   @Output() submit = new EventEmitter();
 	bookForm = new FormGroup(
 		{
 			date: new FormControl('', [Validators.required, pastDateValidator]),
-			startTime: new FormControl('', [Validators.required, Validators.pattern('([01]?[0-9]|20):(00|15|30|45)')]),
-			endTime: new FormControl('', [Validators.required, Validators.pattern('([01]?[0-9]|20):(00|15|30|45)')]),
+			startTime: new FormControl('', [Validators.required]),
+			endTime: new FormControl('', [Validators.required]),
 			weekly: new FormControl(''),
 			title: new FormControl('', [Validators.required]),
 			color: new FormControl(''),
@@ -42,12 +42,11 @@ export class BookFormComponent implements OnInit {
 
 
 
-  @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
-  	// console.log(this.activePageCourt);
-  	// console.log(Object.keys(this.bookForm.get('date').errors))
-  }
+  // @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
+  // }
 
   openPage2(){
+
   	if(this.bookForm.get('date').errors == null && this.bookForm.get('startTime').errors == null && this.bookForm.get('endTime').errors == null){
   		this.page2Ative=true;
   	} else {
@@ -123,7 +122,7 @@ export class BookFormComponent implements OnInit {
     endDate.setHours(+end[0]);
     endDate.setMinutes(+end[1]);
     endDate.setSeconds(0);
-    let color = '#5600e8';
+    let color = '#3f51b5';
     if(data.formGroup.get('color').value){
       color =  data.formGroup.get('color').value;
     }

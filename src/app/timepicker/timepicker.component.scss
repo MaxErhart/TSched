@@ -102,11 +102,13 @@
 
 .timepicker-overlay{
 	position: fixed;
-  margin-left: calc(20% - 50vw);
-  width: 100vw;
-  margin-top: calc(-55% - 50vh);
-  height: 100vh;
-	z-index: 3;
+	width: 200vw;
+	margin-left: -50vw;
+	height: 200vh;
+	margin-top: -50vh;
+	left: 50%;
+	top: 50%;
+
 	visibility: hidden;
 	// background-color: #ffffff;
 	&.active{
