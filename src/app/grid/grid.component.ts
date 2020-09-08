@@ -166,7 +166,7 @@ export class GridComponent implements OnInit {
           this.sign = 1;
         }
         this.touch = event;
-      }, 100)
+      }, 300)
 
     }
   }
