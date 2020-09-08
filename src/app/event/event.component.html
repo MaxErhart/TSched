@@ -1,4 +1,4 @@
-<div class="event-container" [class.active]="active" (click)="open()" [style.height.px]="active ? activeHeight : height" [style.top.px]="active ? top : top">
+<div class="event-container" [class.active]="active" (click)="toggle()" [style.height.px]="active ? activeHeight : height" [style.top.px]="active ? top : top">
 	<div class="event-header" [style.backgroundColor]="event.backgroundColor">
 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>delete_outline</mat-icon>

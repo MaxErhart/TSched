@@ -1,4 +1,4 @@
-@import '../styles';
+@import '../styleVars';
 
 .app-container{
 	overflow: hidden;
@@ -89,7 +89,7 @@
 }
 #book-form{
 	position: fixed;
-	top: 180px;
+	top: 150px;
 	left: 50%;
 	z-index: 3;
 }

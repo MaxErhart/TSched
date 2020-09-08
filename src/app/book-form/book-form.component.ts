@@ -21,6 +21,7 @@ export class BookFormComponent implements OnInit {
 	errorMessages = {startTimeLarger: 'Zeitspanne ungültig', pastDate: 'Datum veraltet', required: 'Benötigtes Feld', pattern: 'Uhrzeit ungültig'}
 	@Input() selection: {date: Date, startTime: string, endTime: string};
   @Input() activePageCourt: {id: number, name: string};
+  @Input() user;
   @Output() submit = new EventEmitter();
 	bookForm = new FormGroup(
 		{
@@ -71,7 +72,7 @@ export class BookFormComponent implements OnInit {
   }
 
   close(submit, event?){
-  	if(submit){
+  	if(submit && this.user){
 	  	if(this.bookForm.valid){
         const eventIDless = this.generateIDlessEvent({formGroup: this.bookForm, activePageCourtId: this.activePageCourt.id})
         this._eventService.addEvent(eventIDless)

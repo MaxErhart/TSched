@@ -1,14 +1,35 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button [matMenuTriggerFor]="settingsMenu" class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #settingsMenu="matMenu">
+    <div *ngIf="user">
+      <div class="header">
+        {{user.name}}
+      </div>
+      <button mat-menu-item *ngFor="let page of settingPagesActive" (click)="menuClick(page)">
+        <span>{{page.name}}</span>
+      </button>
+    </div>
+    <div *ngIf="!user">
+      <div class="header">
+        Nicht Eingeloggt
+      </div>
+      <button mat-menu-item *ngFor="let page of settingPagesInactive">
+        <span>{{page.name}}</span>
+      </button>
+    </div>
+  </mat-menu>
+
+
+
   <span>Planer</span>
   <span class="example-spacer"></span>
   <span class="page-name">{{activePage.name}}</span>
-  <button class="page-button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <button class="page-button" mat-icon-button [matMenuTriggerFor]="pageMenu" aria-label="Example icon-button with a menu">
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
+  <mat-menu #pageMenu="matMenu">
     <button mat-menu-item *ngFor="let page of courtPages" (click)="changePage(page)" >
       <span>{{page.name}}</span>
     </button>

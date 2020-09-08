@@ -6,13 +6,12 @@ import { Component, HostListener} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	replace = false;
-	dragActive = false;
-	grids = {0: 'grid0', 1: 'grid1' }
-	dragStart: {x: number, y: number};
-	dragPosition = {x: 0, y: 0};
   title = 'TSched';
+  user = {name: 'Max Erhart'}
 
+  logout(){
+    delete this.user;
+  }
   // @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
   //   this.dragStart = {x: event.screenX, y: event.screenY};
   //   this.dragActive = true;

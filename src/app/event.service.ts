@@ -8,10 +8,7 @@ export class EventService {
 
 
 	events = [
-		{id: 0, startDate: new Date(2020, 8, 5, 8, 30), endDate: new Date(2020, 8, 4, 11, 0), title: 'Training', owner: 'Max Erhart', info: 'Herren Training', weekly: false, pageId: 0, backgroundColor: '#5600e8'},
-		{id: 1, startDate: new Date(2020, 8, 5, 11, 30), endDate: new Date(2020, 8, 4, 12, 0), title: 'Training', owner: 'Max Erhart', info: 'Herren Training', weekly: false, pageId: 0, backgroundColor: '#5600e8'},
-		{id: 2, startDate: new Date(2020, 8, 5, 14, 45), endDate: new Date(2020, 8, 4, 16, 15), title: 'Training', owner: 'Max Erhart', info: 'Herren Training', weekly: false, pageId: 1, backgroundColor: '#5600e8'},
-		{id: 3, startDate: new Date(2020, 8, 5, 15, 0), endDate: new Date(2020, 8, 4, 16, 30), title: 'Training', owner: 'Max Erhart', info: 'Herren Training', weekly: false, pageId: 2, backgroundColor: '#5600e8'},
+
 	];
 
   constructor() { }

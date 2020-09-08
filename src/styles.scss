@@ -130,62 +130,8 @@ $TSched-theme: mat-dark-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($TSched-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
-$grid-col-width: 250px;
-$grid-row-height: 20px;
-
-$mat-indigo-50: #e8eaf6;
-$mat-indigo-100: #c5cae9;
-$mat-indigo-200: #9fa8da;
-$mat-indigo-300: #7986cb;
-$mat-indigo-400: #5c6bc0;
-$mat-indigo-500: #3f51b5;
-$mat-indigo-600: #3949ab;
-$mat-indigo-700: #303f9f;
-$mat-indigo-800: #283593;
-$mat-indigo-900: #1a237e;
-
-$mat-purple-50: #efe5fd;
-$mat-purple-100: #d5bff9;
-$mat-purple-200: #b894f6;
-$mat-purple-300: #9a66f4;
-$mat-purple-400: #803ff2;
-$mat-purple-500: #6300ee;
-$mat-purple-600: #5600e8;
-$mat-purple-700: #4100e0;
-$mat-purple-800: #2300db;
-$mat-purple-900: #0000d6;
-
-$mat-green-50: #d4f6f2;
-$mat-green-100: #92e9dc;
-$mat-green-200: #03dac4;
-$mat-green-300: #00c7ab;
-$mat-green-400: #00b798;
-$mat-green-500: #00a885;
-$mat-green-600: #009a77;
-$mat-green-700: #008966;
-$mat-green-800: #007957;
-$mat-green-900: #005b39;
-
-$mat-gray-50: #FFFFFF;
-$mat-gray-100: #E8E8E8;
-$mat-gray-200: #D3D3D3;
-$mat-gray-300: #BEBEBE;
-$mat-gray-400: #A8A8A8;
-$mat-gray-500: #888888;
-$mat-gray-600: #696969;
-$mat-gray-700: #505050;
-$mat-gray-750: #404040;
 $mat-gray-800: #303030;
-$mat-gray-850: #202020;
-$mat-gray-900: #101010;
-
-$dark-theme-font-color:  #D3D3D3;
-$light-theme-font-color:  #000000;
-$font-color: $dark-theme-font-color;
-
+/* You can add global styles to this file, and also import other style files */
 
 html, body {
   box-sizing: border-box !important;

@@ -1,3 +1,16 @@
+@import '../../styleVars';
+
+.header{
+	display: flex;
+	color: #ffffff;
+	// padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid $dark-theme-font-color;
+	align-items: center;
+	justify-content: center;
+}
+
 .example-spacer {
   display: flex;
   flex-direction: row;

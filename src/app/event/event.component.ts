@@ -46,6 +46,10 @@ export class EventComponent implements OnInit {
   	this.active = false;
   }
 
+  toggle(){
+    this.active ? this.active = false : this.active = true;
+  }
+
   deleteMe(){
     this.deleteEvent.emit(this.event);
   }

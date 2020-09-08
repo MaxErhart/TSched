@@ -36,6 +36,7 @@ export class GridComponent implements OnInit {
   events: BookedEvent[];
   @Input() activePageCourt: {id: number, name: string};
   @Input() currentDate: Date;
+  @Input() user;
   dragPosition = {x: 0, y: 0};
   dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
@@ -226,63 +227,65 @@ export class GridComponent implements OnInit {
   }
 
   selectGridItem(gridItem){
-    if(gridItem.selected){
-      if(this.selectionRowSpan.end >= gridItem.row && gridItem.row > this.selectionRowSpan.end - 2){
-        if(gridItem.row % 2 == 0){
-          gridItem.selected = false;
-          this.grid[gridItem.row + 1][gridItem.col].selected = false;
-        } else {
-          gridItem.selected = false;
-          this.grid[gridItem.row - 1][gridItem.col].selected = false;
-        }
-        this.selectionRowSpan.end -= 2;
-      } else if(this.selectionRowSpan.start <= gridItem.row && gridItem.row < this.selectionRowSpan.start + 2){
-        if(gridItem.row % 2 == 0){
-          gridItem.selected = false;
-          this.grid[gridItem.row + 1][gridItem.col].selected = false;
-        } else {
-          gridItem.selected = false;
-          this.grid[gridItem.row - 1][gridItem.col].selected = false;
-        }
-        this.selectionRowSpan.start += 2;
-      }
-      if(this.selectionRowSpan.start >= this.selectionRowSpan.end){
-        delete this.selectionRowSpan;
-      }
-    } else {
-      if(this.selectionRowSpan){
-        if(this.selectionRowSpan.end + 2 >= gridItem.row && gridItem.row > this.selectionRowSpan.end){
+    if(this.user){
+      if(gridItem.selected){
+        if(this.selectionRowSpan.end >= gridItem.row && gridItem.row > this.selectionRowSpan.end - 2){
           if(gridItem.row % 2 == 0){
-            gridItem.selected = true;
-            this.grid[gridItem.row + 1][gridItem.col].selected = true;
+            gridItem.selected = false;
+            this.grid[gridItem.row + 1][gridItem.col].selected = false;
           } else {
-            gridItem.selected = true;
-            this.grid[gridItem.row - 1][gridItem.col].selected = true;
+            gridItem.selected = false;
+            this.grid[gridItem.row - 1][gridItem.col].selected = false;
           }
-          this.selectionRowSpan.end += 2;
-        } else if(this.selectionRowSpan.start - 2 <= gridItem.row && gridItem.row < this.selectionRowSpan.start){
+          this.selectionRowSpan.end -= 2;
+        } else if(this.selectionRowSpan.start <= gridItem.row && gridItem.row < this.selectionRowSpan.start + 2){
           if(gridItem.row % 2 == 0){
-            gridItem.selected = true;
-            this.grid[gridItem.row + 1][gridItem.col].selected = true;
+            gridItem.selected = false;
+            this.grid[gridItem.row + 1][gridItem.col].selected = false;
           } else {
-            gridItem.selected = true;
-            this.grid[gridItem.row - 1][gridItem.col].selected = true;
+            gridItem.selected = false;
+            this.grid[gridItem.row - 1][gridItem.col].selected = false;
           }
-          this.selectionRowSpan.start -= 2;
+          this.selectionRowSpan.start += 2;
+        }
+        if(this.selectionRowSpan.start >= this.selectionRowSpan.end){
+          delete this.selectionRowSpan;
         }
       } else {
-        if(gridItem.row % 2 == 0){
-          gridItem.selected = true;
-          this.grid[gridItem.row + 1][gridItem.col].selected = true;
-          this.selectionRowSpan = {start: gridItem.row, end: gridItem.row + 1};
+        if(this.selectionRowSpan){
+          if(this.selectionRowSpan.end + 2 >= gridItem.row && gridItem.row > this.selectionRowSpan.end){
+            if(gridItem.row % 2 == 0){
+              gridItem.selected = true;
+              this.grid[gridItem.row + 1][gridItem.col].selected = true;
+            } else {
+              gridItem.selected = true;
+              this.grid[gridItem.row - 1][gridItem.col].selected = true;
+            }
+            this.selectionRowSpan.end += 2;
+          } else if(this.selectionRowSpan.start - 2 <= gridItem.row && gridItem.row < this.selectionRowSpan.start){
+            if(gridItem.row % 2 == 0){
+              gridItem.selected = true;
+              this.grid[gridItem.row + 1][gridItem.col].selected = true;
+            } else {
+              gridItem.selected = true;
+              this.grid[gridItem.row - 1][gridItem.col].selected = true;
+            }
+            this.selectionRowSpan.start -= 2;
+          }
         } else {
-          gridItem.selected = true;
-          this.grid[gridItem.row - 1][gridItem.col].selected = true;
-          this.selectionRowSpan = {start: gridItem.row - 1, end: gridItem.row};
+          if(gridItem.row % 2 == 0){
+            gridItem.selected = true;
+            this.grid[gridItem.row + 1][gridItem.col].selected = true;
+            this.selectionRowSpan = {start: gridItem.row, end: gridItem.row + 1};
+          } else {
+            gridItem.selected = true;
+            this.grid[gridItem.row - 1][gridItem.col].selected = true;
+            this.selectionRowSpan = {start: gridItem.row - 1, end: gridItem.row};
+          }
         }
       }
+      this.selection = this.setSelection(this.currentDate, this.selectionRowSpan);
     }
-    this.selection = this.setSelection(this.currentDate, this.selectionRowSpan);
   }
 
   setSelection(date, rowSpan){

@@ -6,7 +6,7 @@
 <!-- <app-paginator id="paginator" ></app-paginator> -->
 <div class="app-container" (click)="grid.clearSelection($event)">
 	<div class="app-header">
-		<app-toolbar #toolbar ></app-toolbar>
+		<app-toolbar #toolbar [user]="user" (logoutEmitter)="logout()"></app-toolbar>
 	</div>
 	<div class="app-body">
 		<div class="body-item paginator-container"  >
@@ -16,13 +16,10 @@
 			<app-timeline #timeline></app-timeline>
 		</div>
 		<div class="body-item grid-container">
-			<app-grid class="app-grid" #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate"></app-grid>
+			<app-grid class="app-grid" #grid [user]="user" [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate"></app-grid>
 			<!-- <app-grid class="app-grid" #grid [activePageCourt]="toolbar.activePage"  [currentDate]="paginator.activeDate" [style.left.px]="dragPosition.x + 250" *ngIf="dragActive"></app-grid> -->
 		</div>
 	</div>
-	<div class="app-footer" >
-		foot
-	</div>
 </div>
-<app-new-event-button id="new-event-button" (click)="bookForm.open()"></app-new-event-button>
-<app-book-form #bookForm id="book-form" [selection]="grid.selection" [activePageCourt]="toolbar.activePage" (submit)="grid.clearSelection($event); grid.reloadEvents()"></app-book-form>
+<app-new-event-button id="new-event-button" (click)="bookForm.open()" [user]="user"></app-new-event-button>
+<app-book-form #bookForm id="book-form" [selection]="grid.selection" [activePageCourt]="toolbar.activePage" (submit)="grid.clearSelection($event); grid.reloadEvents()" [user]="user"></app-book-form>
