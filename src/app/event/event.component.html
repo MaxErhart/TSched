@@ -6,9 +6,18 @@
 		<div class="timespan header-item" >
 			{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
 		</div>
-		<div class="date header-item" *ngIf="active || height>40">
-			{{event.startDate | date:'EEEE, d MMM, y'}}
+		<div class="date header-item" *ngIf="!event.weekly; else elseBlock">
+			<div  *ngIf="active || height>40" >
+				{{event.startDate | date:'EEEE, d. MMM'}}
+			</div>
 		</div>
+
+		<ng-template #elseBlock>
+			<div class="date header-item" *ngIf="active || height>40" >
+				{{event.startDate | date:'EEEE'}}s
+			</div>
+		</ng-template>
+
 		<div class="title header-item" [style.gridRowStart]="active ? 2 : height<=40 ? 1 : 2" [style.gridColumnStart]="active ? 1 : height<=40 ? 2 : 1" [style.gridColumnEnd]="3" >
 			{{event.title | titlecase}}
 		</div>

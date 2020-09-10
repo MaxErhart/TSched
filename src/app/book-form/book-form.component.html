@@ -34,10 +34,6 @@
 				</div>
 
 
-				<div class="grid-item item-2 checkbox-item">
-					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
-				</div>
-
 				<div class="grid-item item-3">
 					<mat-form-field appearance="outline" class="form-field timepicker-start" [formGroup]="bookForm">
 					  <mat-label>Startzeitpunkt</mat-label>
@@ -97,11 +93,15 @@
 				    </mat-select>
 				  </mat-form-field>
 				</div>
-				<div class="grid-item item-3 page-2-item-3">
+				<div class="grid-item page-2-item-3">
 				  <mat-form-field appearance="outline"  class="text-field form-field-text" [formGroup]="bookForm">
 				    <mat-label>Info Text</mat-label>
 				    <textarea matInput formControlName="info" class="text-area"></textarea>
 				  </mat-form-field>
+				</div>
+
+				<div class="grid-item item-4 checkbox-item">
+					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
 				</div>
 
 			</form>
@@ -118,3 +118,5 @@
 
 </div>
 <div class="book-form-overlay" [class.active]="active" (click)="close(false)"></div>
+
+
