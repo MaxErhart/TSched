@@ -34,7 +34,7 @@
 				</div>
 
 
-				<div class="grid-item item-2">
+				<div class="grid-item item-2 checkbox-item">
 					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
 				</div>
 
@@ -97,10 +97,10 @@
 				    </mat-select>
 				  </mat-form-field>
 				</div>
-				<div class="grid-item item-3">
-				  <mat-form-field appearance="outline"  class="text-field form-field" [formGroup]="bookForm">
+				<div class="grid-item item-3 page-2-item-3">
+				  <mat-form-field appearance="outline"  class="text-field form-field-text" [formGroup]="bookForm">
 				    <mat-label>Info Text</mat-label>
-				    <textarea matInput formControlName="info"></textarea>
+				    <textarea matInput formControlName="info" class="text-area"></textarea>
 				  </mat-form-field>
 				</div>
 
