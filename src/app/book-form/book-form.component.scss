@@ -3,6 +3,7 @@
 
 .book-form-container{
 	overflow: hidden;
+	// border: 1px solid white;
 	position: absolute;
 	display: grid;
 	grid-template-rows: 28% 72%;
@@ -71,6 +72,7 @@
 	position: relative;
 	display: grid;
 	grid-template-rows: auto 15px;
+	grid-template-columns: 100%;
 	grid-row: 2/3;
 	grid-column: 1/2;
 	width: 100%;
@@ -81,6 +83,7 @@
 	position: relative;
 	display: grid;
 	grid-template-rows: auto 15px;
+	grid-template-columns: 100%;
 	grid-row: 2/3;
 	grid-column: 1/2;
 	z-index: 2;
@@ -121,8 +124,8 @@
 .book-form-body{
 	z-index: 20;
 	position: relative;
-	// width: 100%;
-	padding: 2px;
+	width: 100%;
+	padding: 3px;
 	color: $font-color;
 	background-color: $mat-gray-750;
 	z-index: 0;
@@ -132,25 +135,20 @@
 
 	z-index: 20;
 	position: relative;
-	// width: 100%;
-	padding: 2px;
+	padding: 3px;
 	color: $font-color;
 	background-color: $mat-gray-750;
 	z-index: 0;
 
-	// position: relative;
-	// width: 100%;
-	// padding: 2px;
-	// color: $font-color;
-	// background-color: $mat-gray-750;
 }
 
 .book-form{
 	position: relative;
 	// border: 1px solid pink;
 	height: 100%;
-	width: 100%;
+	width: auto;
 	display: grid;
+	grid-gap: 3px;
 	grid-template-columns: 50% 50%;
 	grid-template-rows: 1fr 1fr;
 	justify-content: center;
@@ -170,14 +168,15 @@
 .form-field{
 	// margin-left: auto;
 	font-size: 1.1em;
-	// width: 50%;
+	min-width: 150px;
 	max-width: 186px;
 	// border: 1px solid white;
 	// height: 50%;
 }
 
-.form-field-text{
 
+.form-field-text{
+	min-width: 150px;
 	max-width: 186px;
 
 }
