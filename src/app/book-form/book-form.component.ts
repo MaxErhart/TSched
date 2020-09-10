@@ -14,6 +14,7 @@ import { EventService } from '../event.service';
 export class BookFormComponent implements OnInit {
 
   height: number;
+  mwindow = window;
 	primary600 = '#5600e818';
 	colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#3f51b5', Rot: '#F9665E', Pink: '#E18AAA'};
 
@@ -44,14 +45,9 @@ export class BookFormComponent implements OnInit {
   }
 
 
+
   @HostListener('window:resize', ['$event']) windowResize(event) {
-    if(window.innerHeight < 270){
-      this.height = 270;
-    } else if(window.innerHeight > 320){
-      this.height = 320;
-    } else {
-      this.height = window.innerHeight;
-    }
+
   }
 
 
