@@ -15,7 +15,7 @@
       <div class="header">
         Nicht Eingeloggt
       </div>
-      <button mat-menu-item *ngFor="let page of settingPagesInactive">
+      <button mat-menu-item *ngFor="let page of settingPagesInactive" (click)="menuClick(page)">
         <span>{{page.name}}</span>
       </button>
     </div>
@@ -25,8 +25,9 @@
 
   <span>Planer</span>
   <span class="example-spacer"></span>
-  <span class="page-name">{{activePage.name}}</span>
-  <button class="page-button" mat-icon-button [matMenuTriggerFor]="pageMenu" aria-label="Example icon-button with a menu">
+
+  <button class="page-button" mat-button [matMenuTriggerFor]="pageMenu" aria-label="Example icon-button with a menu">
+    <span class="page-name">{{activePage.name}}</span>
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu #pageMenu="matMenu">

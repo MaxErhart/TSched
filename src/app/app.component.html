@@ -6,7 +6,7 @@
 <!-- <app-paginator id="paginator" ></app-paginator> -->
 <div class="app-container" (click)="grid.clearSelection($event)">
 	<div class="app-header">
-		<app-toolbar #toolbar [user]="user" (logoutEmitter)="logout()"></app-toolbar>
+		<app-toolbar #toolbar [user]="user" (logoutEmitter)="logout()" (loginEmitter)="login($event)"></app-toolbar>
 	</div>
 	<div class="app-body">
 		<div class="body-item paginator-container"  >

@@ -7,10 +7,13 @@ import { Component, HostListener} from '@angular/core';
 })
 export class AppComponent {
   title = 'TSched';
-  user = {name: 'Max Erhart'}
+  user = {name: 'Default User'};
 
   logout(){
     delete this.user;
+  }
+  login(user){
+    this.user = user;
   }
   // @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
   //   this.dragStart = {x: event.screenX, y: event.screenY};
