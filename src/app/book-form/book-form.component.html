@@ -1,5 +1,5 @@
-<div class="book-form-container" [class.active]="active" [style.top.px]="mwindow.innerHeight-320>0 ? (mwindow.innerHeight-320)/2 : 0" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 270 ? 270 : mwindow.innerHeight" [style.position]="mwindow.innerHeight > 270 ? 'fixed' : 'absolute'">
-	<div class="book-form-header">
+<div class="book-form-container" [class.active]="active" [style.top.px]="mwindow.innerHeight-320>0 ? (mwindow.innerHeight-320)/2 : 0" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 190 ? 190 : mwindow.innerHeight" [style.position]="mwindow.innerHeight > 270 ? 'fixed' : 'fixed'" [style.gridTemplateRows]="mwindow.innerHeight < 260 ? '0 100%' : '28% 72%'" >
+	<div class="book-form-header" >
 		<div class="page-name header-item"><span class="underline">{{activePageCourt.name}}</span></div>
 		<div class="day-name header-item">
 			<div *ngIf="bookForm.get('date').value">
@@ -14,13 +14,16 @@
 				&nbsp; bis <span class="underline">{{bookForm.get('endTime').value}}</span>
 			</div>
 		</div>
-		<button mat-icon-button class="header-close-button" (click)="close(false)">
+		<button mat-icon-button class="header-close-button" (click)="close(false)" >
       <mat-icon class="close-icon">close</mat-icon>
     </button>
 	</div>
 
 	<div class="page-1">
 		<div class="book-form-body">
+			<button mat-icon-button class="header-close-button" (click)="close(false)" *ngIf="mwindow.innerHeight < 260" >
+		    <mat-icon class="close-icon">close</mat-icon>
+		  </button>
 			<form class="book-form">
 
 				<div class="grid-item item-1">
@@ -69,6 +72,9 @@
 
 	<div class="page-2" [class.active]="page2Ative" *ngIf="active">
 		<div class="book-form-body-page-2">
+			<button mat-icon-button class="header-close-button" (click)="close(false)" *ngIf="mwindow.innerHeight < 260" >
+		    <mat-icon class="close-icon">close</mat-icon>
+		  </button>
 			<form class="book-form">
 				<div class="grid-item item-1">
 				  <mat-form-field appearance="outline" class="title-field form-field" [formGroup]="bookForm">
@@ -77,7 +83,7 @@
 				    <mat-error *ngIf="bookForm.get('title').invalid">{{getErrorMessage(bookForm.get('title'))}}</mat-error>
 				  </mat-form-field>
 				</div>
-				<div class="grid-item item-2">
+				<div class="grid-item item-4">
 				  <mat-form-field appearance="outline"  class="color-field form-field" [formGroup]="bookForm">
 				    <mat-label>Farbwahl</mat-label>
 				    <mat-select formControlName="color">
@@ -99,7 +105,7 @@
 				  </mat-form-field>
 				</div>
 
-				<div class="grid-item item-4 checkbox-item">
+				<div class="grid-item item-2 checkbox-item">
 					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
 				</div>
 
