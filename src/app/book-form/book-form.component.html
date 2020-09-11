@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<button mat-icon-button class="header-close-button" (click)="close(false)">
-      <mat-icon>close</mat-icon>
+      <mat-icon class="close-icon">close</mat-icon>
     </button>
 	</div>
 
@@ -24,7 +24,7 @@
 			<form class="book-form">
 
 				<div class="grid-item item-1">
-					<mat-form-field appearance="outline" class="form-field datepicker" [formGroup]="bookForm">
+					<mat-form-field appearance="outline" class="form-field datepicker" [formGroup]="bookForm" color="accent">
 					  <mat-label>Datum</mat-label>
 					  <input matInput [matDatepicker]="picker" formControlName="date" required>
 					  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -35,7 +35,7 @@
 
 
 				<div class="grid-item item-3">
-					<mat-form-field appearance="outline" class="form-field timepicker-start" [formGroup]="bookForm">
+					<mat-form-field appearance="outline" class="form-field timepicker-start" [formGroup]="bookForm" (click)="startTimepicker.toggle()">
 					  <mat-label>Startzeitpunkt</mat-label>
 					  <input matInput formControlName="startTime"  required readonly>
 						<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
@@ -45,7 +45,7 @@
 					  <app-timepicker class="timepicker" #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 					</mat-form-field>
 					<mat-icon class="span-icon" >remove</mat-icon>
-					<mat-form-field appearance="outline" class="form-field timepicker-end" [formGroup]="bookForm">
+					<mat-form-field appearance="outline" class="form-field timepicker-end" [formGroup]="bookForm" (click)="endTimepicker.toggle()">
 					  <mat-label>Endzeitpunkt</mat-label>
 					  <input matInput formControlName="endTime" required readonly>
 						<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
@@ -59,11 +59,10 @@
 			</form>
 		</div>
 
-		<div class="book-form-footer">
-	    <button mat-mini-fab color="primary" class="go-right-button" (click)="openPage2()" *ngIf="!page2Ative">
-	      <mat-icon>keyboard_arrow_right</mat-icon>
-	    </button>
-		</div>
+
+    <button mat-mini-fab color="primary" class="go-right-button" (click)="openPage2()" *ngIf="!page2Ative" color="accent">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
 	</div>
 
 
@@ -105,13 +104,10 @@
 				</div>
 
 			</form>
-		</div>
-
-	  <div class="book-form-footer-page-2">
-	    <button mat-mini-fab color="primary" class="go-left-button" (click)="closePage2()">
+	    <button mat-mini-fab color="primary" class="go-left-button" (click)="closePage2()" color="accent">
 	      <mat-icon>keyboard_arrow_left</mat-icon>
 	    </button>
-	    <button mat-raised-button color="primary" class="accept-button" (click)="close(true, $event)" >Bestätigen</button>
+	    <button mat-raised-button color="primary" class="accept-button" (click)="close(true, $event)" color="accent" >Bestätigen</button>
 		</div>
 	</div>
 
