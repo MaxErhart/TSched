@@ -2,6 +2,7 @@
 
 
 .book-form-container{
+	top: 50%;
 	overflow: hidden;
 	position: absolute;
 	display: grid;
@@ -131,7 +132,8 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	padding: 3px;
+	padding: 6px;
+
 	color: $font-color;
 	background-color: $mat-gray-750;
 

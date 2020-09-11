@@ -1,4 +1,4 @@
-<div class="book-form-container" [class.active]="active" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 270 ? 270 : mwindow.innerHeight">
+<div class="book-form-container" [class.active]="active" [style.top.px]="mwindow.innerHeight-320>0 ? (mwindow.innerHeight-320)/2 : 0" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 270 ? 270 : mwindow.innerHeight">
 	<div class="book-form-header">
 		<div class="page-name header-item"><span class="underline">{{activePageCourt.name}}</span></div>
 		<div class="day-name header-item">
