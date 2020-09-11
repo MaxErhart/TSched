@@ -21,14 +21,14 @@ export class TimepickerComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-  	this.hourPickerElement.nativeElement.scrollTop = 13.5*this.hourPickerElement.nativeElement.offsetHeight/7;
+  	this.hourPickerElement.nativeElement.scrollTop = 13.5*this.hourPickerElement.nativeElement.offsetHeight/5;
   }
 
   onScroll(event){
 		if(event.target.scrollTop <=100){
-			this.hourPickerElement.nativeElement.scrollTop = event.target.scrollTop+12*this.hourPickerElement.nativeElement.offsetHeight/7;
+			this.hourPickerElement.nativeElement.scrollTop = event.target.scrollTop+12*this.hourPickerElement.nativeElement.offsetHeight/5;
 		} else if(event.target.scrollTop >= event.target.scrollHeight-this.hourPickerElement.nativeElement.offsetHeight-100){
-			this.hourPickerElement.nativeElement.scrollTop = event.target.scrollTop - 12*this.hourPickerElement.nativeElement.offsetHeight/7;
+			this.hourPickerElement.nativeElement.scrollTop = event.target.scrollTop - 12*this.hourPickerElement.nativeElement.offsetHeight/5;
 		}
   }
 
