@@ -5,7 +5,6 @@
 	width: $grid-col-width;
 	color: $dark-theme-font-color;
 	font-size: 1.05em;
-	z-index: 1;
 	transition: 200ms ease-in-out;
 	overflow: hidden;
 	&.active{
@@ -40,14 +39,16 @@
 .event-header{
 	height: 100%;
 	display: grid;
+	align-items: center;
 	grid-template-columns: auto auto;
 	transition: 200ms ease-in-out;
 
 }
 
 .header-item{
+	// border: 1px solid white;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 }
 
 .delete-button{

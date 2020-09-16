@@ -1,28 +1,33 @@
 <div class="event-container" [class.active]="active" (click)="toggle()" [style.height.px]="active ? activeHeight : height" [style.top.px]="active ? top : top">
-	<div class="event-header" [style.backgroundColor]="event.backgroundColor">
+	<div class="event-header" [style.backgroundColor]="colors[event.category]">
 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>delete_outline</mat-icon>
     </button>
 		<div class="timespan header-item" >
 			{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
 		</div>
-		<div class="date header-item" *ngIf="!event.weekly; else elseBlock">
-			<div  *ngIf="active || height>40" >
-				{{event.startDate | date:'EEEE, d. MMM'}}
-			</div>
+
+
+		<div class="date header-item" *ngIf="(active || height>40) && !event.weekly " >
+			{{event.startDate | date:'EEEE, d. MMM'}}
 		</div>
 
-		<ng-template #elseBlock>
-			<div class="date header-item" *ngIf="active || height>40" >
-				{{event.startDate | date:'EEEE'}}s
-			</div>
-		</ng-template>
 
-		<div class="title header-item" [style.gridRowStart]="active ? 2 : height<=40 ? 1 : 2" [style.gridColumnStart]="active ? 1 : height<=40 ? 2 : 1" [style.gridColumnEnd]="3" >
-			{{event.title | titlecase}}
+		<div class="date header-item" *ngIf="(active || height>40) && event.weekly" >
+			{{event.startDate | date:'EEEE'}}s
 		</div>
+
+
+		<div class="title header-item" *ngIf="active || height>40" [style.gridRow]="'2/3'" [style.gridColumn]="'1/3'" >
+			{{event.category | titlecase}}
+		</div>
+
+		<div class="title header-item" *ngIf="!active && height<=40" [style.gridRow]="'1/2'"  >
+			{{event.category | titlecase}}
+		</div>
+
 		<div class="owner header-item" *ngIf="active || height>40">
-			{{event.owner | titlecase}}
+			{{event.user.name | titlecase}}
 		</div>
 	</div>
 	<div class="event-body">

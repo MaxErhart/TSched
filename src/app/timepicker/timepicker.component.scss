@@ -4,9 +4,8 @@
 	position: absolute;
 	display: flex;
 	flex-direction: column;
-	width: 125px;
-	height: 200px;
-	// top: -50%;
+	width: 150px;
+	height: 190px;
 	border-radius: 4px;
 	background-color: $mat-gray-700;
 	z-index: 4;
@@ -20,7 +19,7 @@
 
 .body {
 	width: 100%;
-	height: 85%;
+	height: 80%;
 	display: flex;
 	flex-direction: row;
 	font-size: 1.4em;
@@ -43,6 +42,7 @@
 	justify-content: center;
 	align-items: center;
 	display: flex;
+	cursor: pointer;
 	&.selected{
 		background-color: $mat-indigo-200 !important;
 		color: black;
@@ -62,6 +62,7 @@
 .minute-item{
 	height: calc(100/5*1%);
 	width: 100%;
+	cursor: pointer;
 	justify-content: center;
 	align-items: center;
 	display: flex;
@@ -78,7 +79,7 @@
 .footer {
 	border-top: 1px solid $mat-gray-600;
 	width: 100%;
-	height: 15%;
+	height: 20%;
 	display: flex;
 	flex-direction: row;
 }
@@ -118,9 +119,14 @@
 	}
 }
 .icon-container{
-	// border: 1px solid black;
 	box-shadow: 0 -1px 1px 1px rgba(0, 0, 0, 0.2);
-}
-.material-icon{
+	cursor: pointer;
 	color: $mat-pink-400;
+}
+
+#accept{
+	color: gray;
+	&.valid{
+		color: $mat-pink-400;
+	}
 }

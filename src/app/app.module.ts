@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 
 // material components
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -65,6 +65,7 @@ export const DateFormats = {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatMenuModule,
     FormsModule,
     DragDropModule,

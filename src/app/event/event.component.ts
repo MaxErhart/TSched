@@ -9,6 +9,8 @@ import {BookedEvent} from '../bookedEvent.interface'
 export class EventComponent implements OnInit {
 	active = false;
 
+  colors = {Training: '#3f51b5', Privat: '#00b798', Tunier: '#ff4080'};
+
 	@Input() event: BookedEvent;
   @Output() deleteEvent = new EventEmitter();
   eventPosition: {top: number, height: number};

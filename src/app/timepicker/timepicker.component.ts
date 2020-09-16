@@ -7,6 +7,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Input, Output,
 })
 export class TimepickerComponent implements OnInit {
 
+  valid = false;
 	houreList = ['8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 	minuteList = ["00", "15", "30", "45"];
 	@Input() selectedHoure: string;
@@ -35,11 +36,19 @@ export class TimepickerComponent implements OnInit {
   selectHoure(houre){
     event.stopPropagation();
     this.selectedHoure = houre;
+    this.updateValidity();
   }
 
   selectMinute(minute){
     event.stopPropagation();
     this.selectedMinute = minute;
+    this.updateValidity();
+  }
+
+  updateValidity(){
+    if(this.selectedHoure && this.selectedMinute){
+      this.valid = true;
+    }
   }
 
   close(submit){

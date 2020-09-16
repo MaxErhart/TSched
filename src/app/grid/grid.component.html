@@ -1,5 +1,3 @@
-<!-- <div class="grid-container"> -->
-	<!-- <div class="grid-body" #gridBody [style.left.px]="dragPosition.x + gridi.x" *ngFor="let gridi of grids" [style.opacity]="gridi.opacity" [@TransitionAnimation]="{value: state, params: {x: state=='initial' ? clicky.x + gridi.x : gridi.xFinal, opacity: state=='initial' ? gridi.opacity : gridi.opacityFinal}}"  (@TransitionAnimation.done)="animationEnd($event)"> -->
 <div class="grid-body" #gridBody>
 	<div class="grid-row" *ngFor="let row of grid">
 		<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" >
@@ -7,5 +5,4 @@
 		</div>
 	</div>
 </div>
-<!-- </div> -->
 <app-event id="event" *ngFor="let event of events" [event]="event" (click)="clearSelection($event)" (deleteEvent)="deleteEvent($event)"></app-event>

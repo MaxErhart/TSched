@@ -1,4 +1,4 @@
-<div class="book-form-container" [class.active]="active" [style.top.px]="mwindow.innerHeight-320>0 ? (mwindow.innerHeight-320)/2 : 0" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 190 ? 190 : mwindow.innerHeight" [style.position]="mwindow.innerHeight > 270 ? 'fixed' : 'fixed'" [style.gridTemplateRows]="mwindow.innerHeight < 260 ? '0 100%' : '28% 72%'" >
+<!-- <div class="book-form-container" [class.active]="active" [style.top.px]="mwindow.innerHeight-320>0 ? (mwindow.innerHeight-320)/2 : 0" [style.height.px]="mwindow.innerHeight > 320 ? 320 : mwindow.innerHeight < 190 ? 190 : mwindow.innerHeight" [style.position]="mwindow.innerHeight > 270 ? 'fixed' : 'fixed'" [style.gridTemplateRows]="mwindow.innerHeight < 260 ? '0 100%' : '28% 72%'" >
 	<div class="book-form-header" >
 		<div class="page-name header-item"><span class="underline">{{activePageCourt.name}}</span></div>
 		<div class="day-name header-item">
@@ -119,6 +119,229 @@
 
 
 </div>
-<div class="book-form-overlay" [class.active]="active" (click)="close(false)"></div>
+<div class="book-form-overlay" [class.active]="active" (click)="close(false)"></div> -->
+
+<div class="book-form-overlay" [class.active]="active" (click)="close()"></div>
+<form [class.active]="active" [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)">
+	<section id="header" [style.marginBottom.px]="0.05*screenWindow.innerHeight > 30 ? 30 : screenWindow.innerHeight < 415 ? 0 : 0.05*screenWindow.innerHeight">
+		<span id="form-title-span">
+			Buchung {{activePageCourt.name}}
+		</span>
+		<span id="form-close-icon-span">
+			<button mat-icon-button class="header-close-button" (click)="close()" type="button">
+		    <mat-icon class="close-icon">close</mat-icon>
+		  </button>
+		</span>
+	</section>
 
 
+
+
+	<div id="stepper" [style.marginBottom.px]="0.05*screenWindow.innerHeight > 30 ? 30 : screenWindow.innerHeight < 415 ? 0 : 0.05*screenWindow.innerHeight" *ngIf="screenWindow.innerHeight > 338 || stage != 3">
+
+		<span id="date-step" class="step" [class.active]="stage>=0">
+			<div class="step-icon-container">
+				<mat-icon class="step-icon" *ngIf="stage>0">done</mat-icon>
+				<div class="step-icon" *ngIf="stage<=0">1</div>
+			</div>
+			<div class="step-text" *ngIf="stage>0 && bookForm.get('date').value">
+				{{bookForm.get('date').value._d | date:"dd.MM"}}
+			</div>
+			<div class="step-text" *ngIf="stage<=0">
+				Datum
+			</div>
+		</span>
+
+		<span class="step-connector"></span>
+
+		<span id="timespan-step" class="step" [class.active]="stage>=1">
+			<div class="step-icon-container">
+				<mat-icon class="step-icon" *ngIf="stage > 1">done</mat-icon>
+				<div class="step-icon" *ngIf="stage <= 1">2</div>
+			</div>
+			<div class="step-text" *ngIf="stage>1">
+				{{bookForm.get('startTime').value}}-{{bookForm.get('endTime').value}}
+			</div>
+			<div class="step-text" *ngIf="stage<=1">
+				Zeitspanne
+			</div>
+		</span>
+
+		<span class="step-connector"></span>
+
+		<span id="category-step" class="step" [class.active]="stage>=2">
+			<div class="step-icon-container">
+				<mat-icon class="step-icon" *ngIf="stage > 2">done</mat-icon>
+				<div class="step-icon" *ngIf="stage <= 2">3</div>
+			</div>
+			<div class="step-text" *ngIf="stage>2">
+				{{bookForm.get('category').value}}
+			</div>
+			<div class="step-text" *ngIf="stage<=2">
+				Kategorie
+			</div>
+		</span>
+
+		<span class="step-connector"></span>
+
+		<span id="additional-info-step" class="step" [class.active]="stage>=3">
+			<div class="step-icon-container">
+				<mat-icon class="step-icon" *ngIf="stage > 3">done</mat-icon>
+				<div class="step-icon" *ngIf="stage <= 3">4</div>
+			</div>
+			<div class="step-text">
+				Weiteres
+			</div>
+		</span>
+
+	</div>
+	<div id="form-body" [@FormAnimation]="stages[stage]">
+		<div id="page1" class="form-page" [class.active]="stage == 0">
+			<section id="section1">
+				<mat-form-field appearance="outline" id="datepicker" class="form-field" color="primary">
+				  <mat-label>Datum</mat-label>
+				  <input matInput [matDatepicker]="picker" formControlName="date" required>
+				  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				  <mat-datepicker #picker></mat-datepicker>
+				  <mat-error *ngIf="bookForm.get('date').invalid">{{getErrorMessage(bookForm.get('date'))}}</mat-error>
+				</mat-form-field>
+			</section>
+
+			<section id="page-buttons">
+				<span id="go-left-span" >
+			    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" [disabled]="stage == 0" (click)="stage = changeFormStep(-1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_left</mat-icon>
+			    </button>
+				</span>
+				<span id="go-right-span" >
+			    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('date').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_right</mat-icon>
+			    </button>
+				</span>
+			</section>
+
+		</div>
+
+		<div id="page2" class="form-page" [class.active]="stage == 1">
+
+			<section id="section-time-span">
+				<span class="form-field-span">
+					<mat-form-field appearance="outline" id="timepicker-start" class="form-field"  >
+					  <mat-label>Startzeitpunkt</mat-label>
+					  <input matInput formControlName="startTime"  required readonly>
+						<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
+							<mat-icon class="timepicker-icon" >access_time</mat-icon>
+						</div>
+						<mat-error *ngIf="bookForm.get('startTime').invalid">{{getErrorMessage(bookForm.get('startTime'))}}</mat-error>
+					  <app-timepicker class="timepicker" #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					</mat-form-field>
+				</span>
+				<span class="connector-span-icon">
+					<mat-icon class="span-icon" >remove</mat-icon>
+				</span>
+				<span class="form-field-span">
+					<mat-form-field appearance="outline" id="timepicker-end" class="form-field"  >
+					  <mat-label>Endzeitpunkt</mat-label>
+					  <input matInput formControlName="endTime" required readonly>
+						<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
+							<mat-icon class="timepicker-icon" >access_time</mat-icon>
+						</div>
+						<mat-error *ngIf="bookForm.get('endTime').invalid">{{getErrorMessage(bookForm.get('endTime'))}}</mat-error>
+					  <app-timepicker class="timepicker" #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+					</mat-form-field>
+				</span>
+
+			</section>
+
+			<section id="page-buttons">
+				<span id="go-left-span">
+			    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_left</mat-icon>
+			    </button>
+				</span>
+				<span id="go-right-span" >
+			    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('startTime').errors != null || bookForm.get('endTime').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_right</mat-icon>
+			    </button>
+				</span>
+			</section>
+		</div>
+
+		<div id="page3" class="form-page" [class.active]="stage == 2">
+
+			<section id="section1">
+			  <mat-form-field appearance="outline"  class="color-field form-field" >
+			    <mat-label>Kategorie</mat-label>
+			    <mat-select formControlName="category" required>
+			      <mat-option [value]="category.key" *ngFor="let category of eventCategories | keyvalue">
+			      	<section class="mat-option-item">
+			      		<div class="option-text">
+			      			{{category.key | titlecase}}
+			      		</div>
+			      		<div class="option-icon" [style.backgroundColor]="category.value"></div>
+			      	</section>
+
+
+			      </mat-option>
+			    </mat-select>
+			  </mat-form-field>
+			</section>
+
+
+			<section id="page-buttons">
+				<span id="go-left-span">
+			    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_left</mat-icon>
+			    </button>
+				</span>
+				<span id="go-right-span" >
+			    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+			    	Weitere Einstellungen
+			    </button>
+				</span>
+			</section>
+
+			<section class="accept-button-section" *ngIf="stage >= 2">
+				<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.get('category').errors != null">Bestätigen</button>
+			</section>
+
+		</div>
+
+		<div id="page4" class="form-page" [class.active]="stage == 3">
+
+			<section id="section-checkbox">
+				<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
+			</section>
+
+			<section id="section-expand" *ngIf="bookForm.get('weekly').value" [@ExpandAnimation]='display'>
+				<mat-form-field appearance="outline"  id="num-of-weeks" class="form-field" >
+					<mat-label>Anzahl an Wochen</mat-label>
+					<input matInput type="number" formControlName="numOfWeeks" min="2">
+				</mat-form-field>
+			</section>
+
+			<section id="page-buttons">
+				<span id="go-left-span">
+			    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_left</mat-icon>
+			    </button>
+				</span>
+				<span id="go-right-span" >
+			    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+			      <mat-icon>keyboard_arrow_right</mat-icon>
+			    </button>
+				</span>
+			</section>
+
+			<section class="accept-button-section" *ngIf="stage >= 2">
+				<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.get('category').errors != null">Bestätigen</button>
+			</section>
+
+		</div>
+
+	</div>
+
+
+
+
+</form>

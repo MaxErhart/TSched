@@ -26,9 +26,9 @@ export class EventService {
   addEvent(event){
   	if(!this.eventCollision(event)){
 	    try {
-	      this.events.push({id: this.events[this.events.length-1].id +1, startDate: event.startDate, endDate: event.endDate, pageId: event.pageId, owner: event.owner, title: event.title, info: event.info, backgroundColor: event.backgroundColor, weekly: event.weekly});
+	      this.events.push({id: this.events[this.events.length-1].id +1, startDate: event.startDate, endDate: event.endDate, pageId: event.pageId.id, user: event.user, category: event.category, info: event.info, weekly: event.weekly, numOfWeeks: event.numOfWeeks});
 	    } catch (e) {
-	      this.events.push({id: 0, startDate: event.startDate, endDate: event.endDate, pageId: event.pageId, owner: event.owner, title: event.title, info: event.info, backgroundColor: event.backgroundColor, weekly: event.weekly});
+	      this.events.push({id: 0, startDate: event.startDate, endDate: event.endDate, pageId: event.pageId.id, user: event.user, category: event.category, info: event.info, weekly: event.weekly, numOfWeeks: event.numOfWeeks});
 	    }
   	}
   }
