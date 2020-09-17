@@ -331,27 +331,38 @@ $form-field-font-size: 18px;
 	left: 0;
 	z-index: 0;
 	visibility: hidden;
-	// background-color: #ffffff;
+	background-color: rgba(60, 60, 60, 0.2);
 	&.active{
 		visibility: visible;
 	}
 }
 
+#form-container{
+
+	height: 100vh;
+	display: none;
+	&.active{
+		display: flex;
+	}
+}
+
 form {
+	box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+	margin: auto 0;
 	z-index: 1;
+	display: flex;
 	box-sizing: border-box;
 	height: 100vh;
+	max-height: 440.25px;
 	flex-direction: column;
 	width: 100vw;
 	max-width: 600px;
 	color: $dark-theme-font-color;
 	background-color: rgba(60, 60, 60, 0.99);
 	overflow: hidden;
-	display: none;
-	&.active{
-		display: flex;
-	}
+
 }
+
 
 #header{
 	display: flex;
@@ -359,11 +370,11 @@ form {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	margin-left: 1px;
 	margin-right: 1px;
-	margin-top: auto;
+	margin: auto 0;
 	padding-bottom: 4px;
+
 }
 #form-title-span{
-
 	display: inline-block;
 	font-weight: 500;
 	font-size: calc(1.25 * #{$form-field-font-size});
@@ -380,7 +391,7 @@ form {
 }
 
 #form-body {
-	margin-bottom: auto;
+	margin: auto 0;
 	display: flex;
 	flex-direction: row;
 	box-sizing: border-box;
@@ -389,6 +400,9 @@ form {
 
 
 .form-page {
+	// border: 1px solid black;
+	display: flex;
+	flex-direction: column;
 	margin-left: 1px;
 	margin-right: 1px;
 	box-sizing: border-box;
@@ -404,7 +418,10 @@ form {
 
 }
 
-
+#page4{
+	display: flex;
+	flex-direction: column;
+}
 
 #section1 {
 	position: relative;
@@ -423,9 +440,14 @@ form {
 	display: flex;
 	align-items: center;
 	font-size: $form-field-font-size;
-	box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.1);
-	height: 60px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 5px;
+	height: 65px;
 	width: 100%;
+	margin-bottom: auto;
+	&:hover{
+		border: 2px solid $dark-theme-font-color;
+	}
 }
 
 .weekly-checkbox{
@@ -436,14 +458,14 @@ form {
 	position: relative;
 	display: flex;
 	height: 90px;
+	margin-bottom: auto;
 	align-items: center;
-	margin-top:4px;
 	font-size: $form-field-font-size;
 	clip: rect(0, 0, 0, 0);
 }
 
 #page-buttons {
-	padding-top: 5px;
+	padding-top: auto;
 	padding-bottom: 4px;
 }
 
@@ -492,7 +514,7 @@ form {
 .timepicker {
 	position: relative;
 	bottom: 130px;
-	left: 30px;
+	// left: 30px;
 	z-index: 1;
 }
 
@@ -518,7 +540,7 @@ button {
 .accept-button-section {
 	box-sizing: content-box;
 	padding-top: 6px;
-	padding-bottom: 4px;
+	padding-bottom: 2px;
 
 }
 
@@ -541,7 +563,7 @@ button {
 }
 
 #stepper{
-
+	margin: auto 0;
 	margin-left: 1px;
 	margin-right: 1px;
 	font-size: 14px;

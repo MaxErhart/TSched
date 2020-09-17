@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { invalidTimeSpanValidator, pastDateValidator, bookedColissionValidatorFunction } from '../book-form.validators'
 import * as Moment from 'moment';
@@ -32,6 +32,8 @@ export class BookFormComponent implements OnInit {
   @Input() activePageCourt: {id: number, name: string};
   @Input() user;
   @Output() submit = new EventEmitter();
+  @ViewChild('formBody') formBody: ElementRef;
+
 	bookForm = new FormGroup(
 		{
 			date: new FormControl('', [Validators.required, pastDateValidator]),
@@ -92,8 +94,8 @@ export class BookFormComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event']) windowResize(event) {
-    this.bookForm.markAsUntouched();
-    this.bookForm.controls.category.markAsUntouched();
+    console.log(window.innerHeight, this.formBody.nativeElement.getBoundingClientRect())
+
   }
 
 
