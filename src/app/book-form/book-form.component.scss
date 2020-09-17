@@ -338,7 +338,6 @@ $form-field-font-size: 18px;
 }
 
 #form-container{
-
 	height: 100vh;
 	display: none;
 	&.active{
@@ -348,12 +347,11 @@ $form-field-font-size: 18px;
 
 form {
 	box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-	margin: auto 0;
+	position: relative;
+	// top: 150px;
 	z-index: 1;
 	display: flex;
 	box-sizing: border-box;
-	// height: 100vh;
-	// max-height: 440.25px;
 	flex-direction: column;
 	width: 100vw;
 	max-width: 600px;
@@ -444,7 +442,7 @@ form {
 	border-radius: 5px;
 	height: 65px;
 	width: 100%;
-	margin-bottom: auto;
+	margin-bottom: 4px;
 	&:hover{
 		border: 2px solid $dark-theme-font-color;
 	}

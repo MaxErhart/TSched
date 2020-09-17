@@ -15,6 +15,7 @@ import { FormAnimation, ExpandAnimation } from '../form.animation'
 })
 export class BookFormComponent implements OnInit {
 
+  checked=false;
   stage = 0;
   stages = ['step0', 'step1', 'step2', 'step3'];
   height: number;
@@ -50,6 +51,11 @@ export class BookFormComponent implements OnInit {
 	);
 
   constructor(private _eventService: EventService, private http: HttpClient) { }
+
+  toggleCheckbox(){
+    this.bookForm.controls.weekly.setValue(!this.bookForm.controls.weekly.value);
+    this.checked ? this.checked = false : this.checked = true;
+  }
 
   ngOnInit(): void {
   }
@@ -101,7 +107,7 @@ export class BookFormComponent implements OnInit {
 
   @HostListener('document:keypress', ['$event']) documentKeyPress(event: KeyboardEvent) {
     if(event.charCode == 13){
-
+      console.log(this.bookForm.controls.weekly.value)
     }
     // this.untouchFields();
   }

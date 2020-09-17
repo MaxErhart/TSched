@@ -125,7 +125,7 @@
 
 <div id="form-container" [class.active]="active">
 
-	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>440 ? 440 : screenWindow.innerHeight">
+	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>440 ? 440 : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
 
 		<section id="header" >
 			<span id="form-title-span">
@@ -315,11 +315,11 @@
 
 			<div id="page4" class="form-page" [class.active]="stage == 3">
 
-				<section id="section-checkbox">
-					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" >Wöchentlich</mat-checkbox>
+				<section matRipple id="section-checkbox" (click)="toggleCheckbox()">
+					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" [checked]="checked" >Wöchentlich</mat-checkbox>
 				</section>
 
-				<section id="section-expand" *ngIf="bookForm.get('weekly').value" [@ExpandAnimation]='display' [style.height.px]="screenWindow.innerHeight < 354 ? screenWindow.innerHeight>340 ? 90-354+screenWindow.innerHeight : 78 : null">
+				<section id="section-expand" *ngIf="bookForm.get('weekly').value" [@ExpandAnimation]='display' [style.height.px]="screenWindow.innerHeight < 354 ? screenWindow.innerHeight>342 ? 90-354+screenWindow.innerHeight : 87 : null">
 					<mat-form-field appearance="outline"  id="num-of-weeks" class="form-field" >
 						<mat-label>Anzahl an Wochen</mat-label>
 						<input matInput type="number" formControlName="numOfWeeks" min="2">
