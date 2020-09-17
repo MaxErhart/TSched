@@ -359,6 +359,7 @@ form {
 	background-color: rgba(60, 60, 60, 0.99);
 	overflow: hidden;
 
+
 }
 
 
@@ -391,14 +392,16 @@ form {
 #form-body {
 	margin: auto 0;
 	display: flex;
+
 	flex-direction: row;
 	box-sizing: border-box;
 	width: 400%;
+	height: 60%;
 }
 
 
 .form-page {
-	// border: 1px solid black;
+
 	display: flex;
 	flex-direction: column;
 	margin-left: 1px;
@@ -406,7 +409,6 @@ form {
 	box-sizing: border-box;
 	position: relative;
 	width: calc(100/3*1%);
-	// height: 100%;
 	padding-top: 5px;
 	width: calc(100 / 4 * 1%);
 	visibility: hidden;
@@ -431,10 +433,11 @@ form {
 	z-index: 0;
 	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.1);
 	width: 100%;
-
+	margin: auto 0;
 }
 
 #section-checkbox{
+	margin: auto 0;
 	display: flex;
 	align-items: center;
 	font-size: $form-field-font-size;
@@ -442,7 +445,7 @@ form {
 	border-radius: 5px;
 	height: 65px;
 	width: 100%;
-	margin-bottom: 4px;
+	// margin-bottom: 4px;
 	&:hover{
 		border: 2px solid $dark-theme-font-color;
 	}
@@ -458,15 +461,15 @@ form {
 	position: relative;
 	display: flex;
 	height: 90px;
-	margin-bottom: auto;
+	margin: auto 0;
 	align-items: center;
 	font-size: $form-field-font-size;
 	clip: rect(0, 0, 0, 0);
 }
 
 #page-buttons {
-	padding-top: auto;
-	padding-bottom: 4px;
+	padding: auto 0;
+	// padding-bottom: 4px;
 }
 
 .suffix-icon-container{
