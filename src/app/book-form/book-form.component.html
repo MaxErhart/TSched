@@ -125,7 +125,7 @@
 
 <div id="form-container" [class.active]="active">
 
-	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>440 ? 440 : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
+	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>400 ? 400 : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
 
 		<section id="header" >
 			<span id="form-title-span">

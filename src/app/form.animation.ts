@@ -37,28 +37,16 @@ export const ExpandAnimation = [
 			state(
 				'display',
 				style({
-					height: '100%',
-					top: '0',
-					zIndex: '1',
+					transform: 'translateY(0%)',
 				})
 			),
 			state(
 				'void',
 				style({
-					height: '0%',
-					top: '0',
-					zIndex: '-1',
 
+					transform: 'translateY(-110%)',
 				})
 			),
-			transition('void => *', animate('200ms ease-in-out', keyframes([
-				style({height: '0%', top: '0', zIndex: -1, offset: 0}),
-				style({height: 'calc(0.99 * 90px)', top: '0%', zIndex: -1, offset: 0.99}),
-				style({height: '90px', top: '0%', zIndex: 1, offset: 1}),
-				]))),
-			transition('* => void', animate('200ms ease-in-out', keyframes([
-				style({height: '90px', top: '0%', zIndex: -1, offset: 0}),
-				style({height: '0', top: '0', zIndex: -1, offset: 1}),
-				]))),
+			transition('void <=> *', animate('300ms ease-in-out')),
 		])
 ]

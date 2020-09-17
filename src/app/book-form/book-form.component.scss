@@ -430,14 +430,15 @@ form {
 	align-items: center;
 	font-size: $form-field-font-size;
 	background-color: rgba(60, 60, 60, 0.99);
-	z-index: 0;
+	z-index: 1;
 	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.1);
 	width: 100%;
-	margin: auto 0;
+	margin-bottom: auto;
 }
 
 #section-checkbox{
-	margin: auto 0;
+	position: relative;
+	margin-bottom: auto;
 	display: flex;
 	align-items: center;
 	font-size: $form-field-font-size;
@@ -445,6 +446,8 @@ form {
 	border-radius: 5px;
 	height: 65px;
 	width: 100%;
+	z-index: 10;
+	background-color: rgba(60, 60, 60, 0.99);
 	// margin-bottom: 4px;
 	&:hover{
 		border: 2px solid $dark-theme-font-color;
@@ -452,19 +455,21 @@ form {
 }
 
 .weekly-checkbox{
-	z-index: -1;
 	margin-left: 3%;
 	pointer-events: none;
 }
 
 #section-expand {
+
 	position: relative;
+	z-index: -1;
 	display: flex;
-	height: 90px;
-	margin: auto 0;
+	width: 100%;
+	height: 65px;
+	top: 2px;
 	align-items: center;
 	font-size: $form-field-font-size;
-	clip: rect(0, 0, 0, 0);
+
 }
 
 #page-buttons {
@@ -490,6 +495,7 @@ form {
 	position: relative;
 	display: flex;
 	flex-direction: row;
+	margin-bottom: auto;
 	justify-content:space-between;
 	height: 90px;
 	align-items: center;
