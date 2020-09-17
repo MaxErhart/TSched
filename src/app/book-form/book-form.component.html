@@ -232,23 +232,26 @@
 
 				<section id="section-time-span" [style.height.px]="screenWindow.innerHeight < 354 ? screenWindow.innerHeight>342 ? 90-354+screenWindow.innerHeight : 80 : null">
 					<span class="form-field-span">
-						<mat-form-field appearance="outline" id="timepicker-start" class="form-field"  >
+						<mat-form-field appearance="outline" id="timepicker-start" class="form-field" (click)="startTimepicker.toggle()">
 						  <mat-label>Startzeitpunkt</mat-label>
-						  <input matInput formControlName="startTime"  required >
+						  <input matInput formControlName="startTime"  required readonly>
 							<div matRipple class="suffix-icon-container" matSuffix (click)="startTimepicker.toggle()" [matRippleColor]="startTimepicker.active ? undefined : primary600" [class.active]="startTimepicker.active">
 								<mat-icon class="timepicker-icon" >access_time</mat-icon>
 							</div>
 							<mat-error *ngIf="bookForm.get('startTime').invalid">{{getErrorMessage(bookForm.get('startTime'))}}</mat-error>
 						  <app-timepicker class="timepicker" #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
 						</mat-form-field>
+<!-- 						<mat-form-field appearance="outline">
+							<app-time-input-field></app-time-input-field>
+						</mat-form-field> -->
 					</span>
 					<span class="connector-span-icon">
 						<mat-icon class="span-icon" >remove</mat-icon>
 					</span>
 					<span class="form-field-span">
-						<mat-form-field appearance="outline" id="timepicker-end" class="form-field"  >
+						<mat-form-field appearance="outline" id="timepicker-end" class="form-field" (click)="endTimepicker.toggle()" >
 						  <mat-label>Endzeitpunkt</mat-label>
-						  <input matInput formControlName="endTime" required >
+						  <input matInput formControlName="endTime" required readonly>
 							<div matRipple class="suffix-icon-container" matSuffix (click)="endTimepicker.toggle()" [matRippleColor]="endTimepicker.active ? undefined : primary600" [class.active]="endTimepicker.active">
 								<mat-icon class="timepicker-icon" >access_time</mat-icon>
 							</div>
@@ -289,7 +292,9 @@
 
 
 				      </mat-option>
+
 				    </mat-select>
+						<mat-error *ngIf="bookForm.get('category').invalid">{{getErrorMessage(bookForm.get('category'))}}</mat-error>
 				  </mat-form-field>
 				</section>
 
@@ -315,7 +320,7 @@
 
 			<div id="page4" class="form-page" [class.active]="stage == 3">
 
-				<section matRipple id="section-checkbox" (click)="toggleCheckbox()">
+				<section matRipple id="section-checkbox" (click)="toggleCheckbox($event)">
 					<mat-checkbox color="primary" class="weekly-checkbox" labelPosition="after" [formControl]="bookForm.get('weekly')" [checked]="checked" >Wöchentlich</mat-checkbox>
 				</section>
 
@@ -328,7 +333,7 @@
 
 				<section id="page-buttons">
 					<span id="go-left-span">
-				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1); checked ? toggleCheckbox($event) : null" color="" type="button">
 				      <mat-icon>keyboard_arrow_left</mat-icon>
 				    </button>
 					</span>

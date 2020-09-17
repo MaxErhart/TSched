@@ -19,7 +19,7 @@ import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-ad
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import {A11yModule} from '@angular/cdk/a11y';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -37,6 +37,7 @@ import { EventComponent } from './event/event.component';
 import { NewEventButtonComponent } from './new-event-button/new-event-button.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { TimeInputFieldComponent } from './time-input-field/time-input-field.component';
 
 export const DateFormats = {
         parse: {
@@ -60,11 +61,13 @@ export const DateFormats = {
     EventComponent,
     NewEventButtonComponent,
     PaginatorComponent,
-    TimelineComponent
+    TimelineComponent,
+    TimeInputFieldComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    A11yModule,
     HttpClientModule,
     MatMenuModule,
     FormsModule,

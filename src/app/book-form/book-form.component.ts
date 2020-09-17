@@ -52,7 +52,7 @@ export class BookFormComponent implements OnInit {
 
   constructor(private _eventService: EventService, private http: HttpClient) { }
 
-  toggleCheckbox(){
+  toggleCheckbox(event?){
     this.bookForm.controls.weekly.setValue(!this.bookForm.controls.weekly.value);
     this.checked ? this.checked = false : this.checked = true;
   }
@@ -100,14 +100,15 @@ export class BookFormComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event']) windowResize(event) {
-    console.log(window.innerHeight, this.formBody.nativeElement.getBoundingClientRect())
-
   }
 
 
   @HostListener('document:keypress', ['$event']) documentKeyPress(event: KeyboardEvent) {
     if(event.charCode == 13){
-      console.log(this.bookForm.controls.weekly.value)
+      console.log(this.bookForm.controls.startTime)
+      this.bookForm.controls.startTime.markAsTouched();
+      this.bookForm.controls.startTime.markAsDirty();
+      // this.bookForm.controls.startTime.updateValueAndValidity();
     }
     // this.untouchFields();
   }

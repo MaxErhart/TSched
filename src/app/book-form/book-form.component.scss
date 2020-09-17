@@ -449,7 +449,9 @@ form {
 }
 
 .weekly-checkbox{
+	z-index: -1;
 	margin-left: 3%;
+	pointer-events: none;
 }
 
 #section-expand {
