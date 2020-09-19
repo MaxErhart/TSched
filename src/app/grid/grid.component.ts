@@ -6,6 +6,8 @@ import { EventService } from '../event.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { TransitionAnimation } from '../transition.animation'
 
+
+
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -14,8 +16,8 @@ import { TransitionAnimation } from '../transition.animation'
 })
 export class GridComponent implements OnInit {
 
-  gridColWidth = 250;
 
+  gridColWidth = 250;
 
 	grid: GridItem[][];
 	gridSetting: {rows: number, cols: number};

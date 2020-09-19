@@ -39,6 +39,15 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimeInputFieldComponent } from './time-input-field/time-input-field.component';
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+
 export const DateFormats = {
         parse: {
             dateInput: ['DD-MM-YYYY']
@@ -66,6 +75,7 @@ export const DateFormats = {
   ],
   imports: [
     BrowserModule,
+    SwiperModule,
     ReactiveFormsModule,
     A11yModule,
     HttpClientModule,
@@ -89,6 +99,7 @@ export const DateFormats = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: DateFormats },
     { provide: LOCALE_ID, useValue: "de-de" },
+    { provide: SWIPER_CONFIG, useValue: DEFAULT_SWIPER_CONFIG }
   ],
   bootstrap: [AppComponent]
 })

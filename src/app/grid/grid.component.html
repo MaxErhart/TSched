@@ -1,8 +1,49 @@
-<div class="grid-body" #gridBody>
+<swiper >
+
+  <div>
+
+		<div class="grid-body" #gridBody>
+			<div class="grid-row" *ngFor="let row of grid">
+				<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" >
+
+				</div>
+			</div>
+		</div>
+
+  </div>
+
+  <div>
+
+		<div class="grid-body" #gridBody>
+			<div class="grid-row" *ngFor="let row of grid">
+				<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" >
+
+				</div>
+			</div>
+		</div>
+
+  </div>
+
+  <div>
+
+		<div class="grid-body" #gridBody>
+			<div class="grid-row" *ngFor="let row of grid">
+				<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" >
+
+				</div>
+			</div>
+		</div>
+
+  </div>
+
+</swiper>
+
+<!-- <div class="grid-body" #gridBody>
 	<div class="grid-row" *ngFor="let row of grid">
 		<div class="grid-item col-{{gridItem.col}} row-{{gridItem.row}}" id="grid-item" *ngFor="let gridItem of row" [class.selected]="gridItem.selected" [class.booked]="gridItem.booked" (click)="selectGridItem(gridItem)" >
 
 		</div>
 	</div>
-</div>
+</div> -->
 <app-event id="event" *ngFor="let event of events" [event]="event" (click)="clearSelection($event)" (deleteEvent)="deleteEvent($event)"></app-event>
+
