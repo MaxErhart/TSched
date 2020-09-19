@@ -1,4 +1,6 @@
-import { Component, HostListener} from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import Swiper from 'swiper'
+import {PaginatorComponent} from './paginator/paginator.component'
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,42 @@ import { Component, HostListener} from '@angular/core';
 export class AppComponent {
   title = 'TSched';
   user = {name: 'Default User'};
+  performance: any;
+  prevDate: Date;
+  currDate: Date;
+  nextDate: Date;
+  activeGrid = 1;
+  @ViewChild('paginator') paginator: PaginatorComponent;
+
+  ngAfterViewInit(){
+
+    const e = (e) => {
+      this.paginator.pageChange(e);
+      console.log('hi')
+    }
+
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      initialSlide: 1,
+    });
+
+    swiper.on('slideChangeTransitionEnd', function (event) {
+      if(event.realIndex != 1){
+        console.log(event.realIndex)
+        if(event.realIndex == 0){
+          e(-1);
+        } else {
+          e(1);
+        }
+      }
+
+      swiper.slideTo(1, 0, true);
+
+
+    })
+  }
+
+
 
   logout(){
     delete this.user;
@@ -15,34 +53,10 @@ export class AppComponent {
   login(user){
     this.user = user;
   }
-  // @HostListener('document:mousedown', ['$event']) documentMD(event: MouseEvent) {
-  //   this.dragStart = {x: event.screenX, y: event.screenY};
-  //   this.dragActive = true;
 
-  // }
+  changeDate(date, change){
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate() + change)
+  }
 
-  // @HostListener('document:mousemove', ['$event']) documentMM(event: MouseEvent) {
-  //   event.stopPropagation();
-  //   event.preventDefault();
-  //   if(event.buttons == 1 && event.button == 0){
-  //     if(event.screenX - this.dragStart.x < 0){
-  //       this.dragPosition = {x: -this.dragStart.x + event.screenX, y: 0};
-  //     } else {
-  //       this.dragPosition = {x: -this.dragStart.x + event.screenX, y: 0};
-  //     }
-  //   }
-  // }
-
-  // @HostListener('document:mouseup', ['$event']) documentMU(event: MouseEvent) {
-  //   event.stopPropagation();
-  //   if(event.screenX - this.dragStart.x < -150){
-  //     this.dragPosition = {x: -250, y: 0};
-  //   } else if(event.screenX - this.dragStart.x > 150){
-  //     this.dragPosition = {x: 250, y: 0};
-  //   } else {
-  //     this.dragPosition = {x: 0, y: 0};
-  //   }
-  //   this.dragActive = false;
-  // }
 
 }

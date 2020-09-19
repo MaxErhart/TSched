@@ -1,12 +1,11 @@
-import { Component, OnInit, HostListener, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, Input, OnChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GridItem } from '../gridItem.interface'
 import { SettingService } from '../setting.service'
 import {BookedEvent} from '../bookedEvent.interface'
 import { EventService } from '../event.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { TransitionAnimation } from '../transition.animation'
-
-
+import Swiper from 'swiper';
 
 @Component({
   selector: 'app-grid',
@@ -27,12 +26,12 @@ export class GridComponent implements OnInit {
   @Input() activePageCourt: {id: number, name: string};
   @Input() currentDate: Date;
   @Input() user;
-  dragPosition = {x: 0, y: 0};
-  dragPositionNewGrid = {x: 0, y: 0};
   constructor(private _settingService: SettingService, private _eventService: EventService) { }
 
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
   }
+
+
 
   ngOnInit(): void {
     const settings = this._settingService.getSettings();
@@ -44,7 +43,6 @@ export class GridComponent implements OnInit {
   ngOnChanges(changes): void {
     this.reloadEvents();
   }
-
 
   reloadEvents(){
     delete this.events;
