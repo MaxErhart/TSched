@@ -50,3 +50,22 @@ export const ExpandAnimation = [
 			transition('void <=> *', animate('300ms ease-in-out')),
 		])
 ]
+
+export const ExpandAnimationForm = [
+	trigger('ExpandAnimationForm',[
+			state(
+				'inactive',
+				style({
+					height: '305px',
+				})
+			),
+			state(
+				'active',
+				style({
+
+					height: '365px',
+				})
+			),
+			transition('inactive <=> active', animate('200ms ease-in-out')),
+		])
+]

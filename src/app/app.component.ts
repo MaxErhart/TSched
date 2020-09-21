@@ -21,7 +21,6 @@ export class AppComponent {
 
     const e = (e) => {
       this.paginator.pageChange(e);
-      console.log('hi')
     }
 
     var swiper = new Swiper('.swiper-container', {
@@ -31,7 +30,6 @@ export class AppComponent {
 
     swiper.on('slideChangeTransitionEnd', function (event) {
       if(event.realIndex != 1){
-        console.log(event.realIndex)
         if(event.realIndex == 0){
           e(-1);
         } else {

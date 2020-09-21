@@ -471,10 +471,6 @@ form {
 
 }
 
-#page-buttons {
-	padding: auto 0;
-	// padding-bottom: 4px;
-}
 
 .suffix-icon-container{
 	display: flex;
@@ -531,13 +527,21 @@ button {
 }
 
 #page-buttons {
+	padding: auto 0;
+	margin-bottom: 10px;
 	display: flex;
+}
+.accept-span{
+	width: 100%;
+	padding: 0 10px;
+	height: 30px;
 }
 #go-left-span {
 	margin-right: auto;
+	height: 30px;
 }
 #go-right-span {
-	margin-left: auto;
+	height: 30px;
 }
 
 

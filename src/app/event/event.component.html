@@ -1,8 +1,11 @@
-<div class="event-container" [class.active]="active" (click)="toggle()" [style.height.px]="active ? activeHeight : height" [style.top.px]="active ? top : top">
-	<div class="event-header" [style.backgroundColor]="colors[event.category]">
-		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
+<div class="event-container" [class.active]="active" (click)="toggle()" [style.height]="active ? 'auto' : height  + 'px'" [style.top.px]="top">
+	<div class="event-header" [style.backgroundColor]="colors[event.category]" [style.color]="fontColors[event.category]">
+<!-- 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>delete_outline</mat-icon>
-    </button>
+    </button> -->
+<!-- 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
+      <mat-icon>more_vert</mat-icon>
+    </button> -->
 		<div class="timespan header-item" >
 			{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
 		</div>
@@ -18,13 +21,10 @@
 		</div>
 
 
-		<div class="title header-item" *ngIf="active || height>40" [style.gridRow]="'2/3'" [style.gridColumn]="'1/3'" >
+		<div class="title header-item" [style.gridRow]="'1/2'" [style.gridColumn]="'2/3'" >
 			{{event.category | titlecase}}
 		</div>
 
-		<div class="title header-item" *ngIf="!active && height<=40" [style.gridRow]="'1/2'"  >
-			{{event.category | titlecase}}
-		</div>
 
 		<div class="owner header-item" *ngIf="active || height>40">
 			{{event.user.name | titlecase}}
@@ -33,8 +33,8 @@
 	<div class="event-body">
 		{{event.info}}
 	</div>
-	<div class="event-footer">
+<!-- 	<div class="event-footer">
 		This Footer
-	</div>
+	</div> -->
 </div>
 <div class="overlay" [class.active]="active" (click)="close()"></div>

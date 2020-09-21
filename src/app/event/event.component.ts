@@ -10,14 +10,14 @@ export class EventComponent implements OnInit {
 	active = false;
 
   colors = {Training: '#3f51b5', Privat: '#00b798', Tunier: '#ff4080'};
-
+  fontColors = {Training: '#D3D3D3', Privat: '#000000', Tunier: '#000000'};
 	@Input() event: BookedEvent;
   @Output() deleteEvent = new EventEmitter();
   eventPosition: {top: number, height: number};
   gridRowHeight = 20;
   height: number;
   top: number;
-  activeHeight = 250;
+  activeHeight = 'auto';
   constructor() { }
 
   ngOnInit(): void {

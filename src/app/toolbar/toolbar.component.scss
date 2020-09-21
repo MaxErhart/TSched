@@ -19,8 +19,8 @@
 	border: 1px solid white;
 }
 .page-name{
-	font-size: 1.1em;
-	padding-right: 10px;
+	font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+	padding: 0 10px;
 }
 .page-button{
 	margin-left: auto;
@@ -28,4 +28,7 @@
 }
 .page-button > *{
 	transform: translateX(-100%);
+}
+.example-icon{
+
 }

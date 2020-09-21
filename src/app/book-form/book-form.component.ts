@@ -5,16 +5,17 @@ import * as Moment from 'moment';
 import {BookedEvent} from '../bookedEvent.interface'
 import { EventService } from '../event.service';
 import { HttpClient } from '@angular/common/http';
-import { FormAnimation, ExpandAnimation } from '../form.animation'
+import { FormAnimation, ExpandAnimation, ExpandAnimationForm } from '../form.animation'
 
 @Component({
   selector: 'app-book-form',
   templateUrl: './book-form.component.html',
   styleUrls: ['./book-form.component.scss'],
-  animations: [FormAnimation, ExpandAnimation],
+  animations: [FormAnimation, ExpandAnimation, ExpandAnimationForm],
 })
 export class BookFormComponent implements OnInit {
 
+  formHeight = 305;
   checked=false;
   stage = 0;
   stages = ['step0', 'step1', 'step2', 'step3'];
@@ -75,7 +76,11 @@ export class BookFormComponent implements OnInit {
     const date = customerData.date._d.getDate();
     const startDate = new Date(year, month, date, customerData.startTime.split(':')[0], customerData.startTime.split(':')[1]);
     const endDate = new Date(year, month, date, customerData.endTime.split(':')[0], customerData.endTime.split(':')[1]);
-    return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: customerData.info, numOfWeeks: customerData.numOfWeeks, user: customerData.user};
+    if(customerData.info == ''){
+      return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: 'Keine Beschreibung', numOfWeeks: customerData.numOfWeeks, user: customerData.user};
+    } else {
+      return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: customerData.info, numOfWeeks: customerData.numOfWeeks, user: customerData.user};
+    }
     formData.append('startDate',  startDate.toString());
     formData.append('endDate',  endDate.toString());
     formData.append('pageId',  customerData.activePageCourt);
@@ -115,6 +120,8 @@ export class BookFormComponent implements OnInit {
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
     // console.log(this.bookForm.get('startTime'));
     // console.log(this.bookForm.get('date').errors == null)
+    console.log(this.bookForm)
+    console.log(this.bookForm.invalid)
   }
 
   open(){
@@ -132,6 +139,12 @@ export class BookFormComponent implements OnInit {
 
   close(){
     this.active=false;
+  }
+
+  getTime(formControlName, event){
+    console.log(formControlName, event)
+    this.bookForm.get(formControlName).setValue(event.houre + ':' + event.minute);
+    this.bookForm.get(formControlName).markAsTouched();
   }
 
   // untouchFields(){

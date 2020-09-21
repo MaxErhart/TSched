@@ -125,7 +125,7 @@
 
 <div id="form-container" [class.active]="active">
 
-	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>400 ? 400 : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
+	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>formHeight ? formHeight : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
 
 		<section id="header" >
 			<span id="form-title-span">
@@ -215,17 +215,21 @@
 
 				<section id="page-buttons">
 					<span id="go-left-span" >
-				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" [disabled]="stage == 0" (click)="stage = changeFormStep(-1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" [disabled]="stage == 0" (click)="stage = changeFormStep(-1)" color="" type="button">
 				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
-				    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('date').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('date').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				      <span>Weiter</span>
 				      <mat-icon>keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
 				</section>
-
+				<section class="accept-button-section">
+					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.invalid">Bestätigen</button>
+				</section>
 			</div>
 
 			<div id="page2" class="form-page" [class.active]="stage == 1">
@@ -239,7 +243,7 @@
 								<mat-icon class="timepicker-icon" >access_time</mat-icon>
 							</div>
 							<mat-error *ngIf="bookForm.get('startTime').invalid">{{getErrorMessage(bookForm.get('startTime'))}}</mat-error>
-						  <app-timepicker class="timepicker" #startTimepicker (submit)="bookForm.get('startTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+						  <app-timepicker class="timepicker" #startTimepicker (submit)="getTime('startTime', $event)"></app-timepicker>
 						</mat-form-field>
 					</span>
 					<span class="connector-span-icon">
@@ -253,7 +257,7 @@
 								<mat-icon class="timepicker-icon" >access_time</mat-icon>
 							</div>
 							<mat-error *ngIf="bookForm.get('endTime').invalid">{{getErrorMessage(bookForm.get('endTime'))}}</mat-error>
-						  <app-timepicker class="timepicker" #endTimepicker (submit)="bookForm.get('endTime').setValue($event.houre + ':' + $event.minute)"></app-timepicker>
+						  <app-timepicker class="timepicker" #endTimepicker (submit)="getTime('endTime', $event)"></app-timepicker>
 						</mat-form-field>
 					</span>
 
@@ -261,15 +265,20 @@
 
 				<section id="page-buttons">
 					<span id="go-left-span">
-				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
 				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
-				    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('startTime').errors != null || bookForm.get('endTime').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('startTime').errors != null || bookForm.get('endTime').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				      <span>Weiter</span>
 				      <mat-icon>keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
+				</section>
+				<section class="accept-button-section" >
+					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.invalid">Bestätigen</button>
 				</section>
 			</div>
 
@@ -298,19 +307,20 @@
 
 				<section id="page-buttons">
 					<span id="go-left-span">
-				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
 				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
 				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
-				    	Weitere Einstellungen
+				    	<span>Weitere Einstellungen</span>
 				    </button>
 					</span>
 				</section>
 
-				<section class="accept-button-section" *ngIf="stage >= 2">
-					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.get('category').errors != null">Bestätigen</button>
+				<section class="accept-button-section">
+					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.invalid">Bestätigen</button>
 				</section>
 
 			</div>
@@ -330,19 +340,21 @@
 
 				<section id="page-buttons">
 					<span id="go-left-span">
-				    <button mat-mini-fab color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1); checked ? toggleCheckbox($event) : null" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1); checked ? toggleCheckbox($event) : null" color="" type="button">
 				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
-				    <button mat-mini-fab color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
+				      <span> Weiter</span>
 				      <mat-icon>keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
 				</section>
 
-				<section class="accept-button-section" *ngIf="stage >= 2">
-					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.get('category').errors != null">Bestätigen</button>
+				<section class="accept-button-section">
+					<button mat-raised-button color="primary" type="submit" class="accept-button" color="accent" [disabled]="bookForm.invalid">Bestätigen</button>
 				</section>
 
 			</div>
