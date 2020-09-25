@@ -125,7 +125,7 @@
 
 <div id="form-container" [class.active]="active">
 
-	<form #formBody  [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>formHeight ? formHeight : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
+	<form #formBody [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)" [style.paddingRight]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.paddingLeft]="screenWindow.innerWidth > 400 ? '10px': '0'" [style.height.px]="screenWindow.innerHeight>formHeight ? formHeight : screenWindow.innerHeight" [style.top.px]="screenWindow.innerHeight > 400 ? 0.5*screenWindow.innerHeight-200 : 0">
 
 		<section id="header" >
 			<span id="form-title-span">
@@ -143,7 +143,7 @@
 
 		<div id="stepper"  *ngIf="screenWindow.innerHeight > 338 || stage != 3">
 
-			<span id="date-step" class="step" [class.active]="stage>=0">
+			<span id="date-step" class="step" [class.active]="stage>=0" (click)="stage = 0">
 				<div class="step-icon-container">
 					<mat-icon class="step-icon" *ngIf="stage>0">done</mat-icon>
 					<div class="step-icon" *ngIf="stage<=0">1</div>
@@ -158,7 +158,7 @@
 
 			<span class="step-connector"></span>
 
-			<span id="timespan-step" class="step" [class.active]="stage>=1">
+			<span id="timespan-step" class="step" [class.active]="stage>=1" (click)="(bookForm.get('date').errors == null) ? stage = 1 : null">
 				<div class="step-icon-container">
 					<mat-icon class="step-icon" *ngIf="stage > 1">done</mat-icon>
 					<div class="step-icon" *ngIf="stage <= 1">2</div>
@@ -173,7 +173,7 @@
 
 			<span class="step-connector"></span>
 
-			<span id="category-step" class="step" [class.active]="stage>=2">
+			<span id="category-step" class="step" [class.active]="stage>=2" (click)="(bookForm.get('date').errors == null && bookForm.get('startTime').errors == null && bookForm.get('endTime').errors== null) ? stage = 2 : null">
 				<div class="step-icon-container">
 					<mat-icon class="step-icon" *ngIf="stage > 2">done</mat-icon>
 					<div class="step-icon" *ngIf="stage <= 2">3</div>
@@ -188,7 +188,7 @@
 
 			<span class="step-connector"></span>
 
-			<span id="additional-info-step" class="step" [class.active]="stage>=3">
+			<span id="additional-info-step" class="step" [class.active]="stage>=3" (click)="(bookForm.get('date').errors == null && bookForm.get('startTime').errors == null && bookForm.get('endTime').errors== null  && bookForm.get('category').errors == null) ? stage = 3 : null">
 				<div class="step-icon-container">
 					<mat-icon class="step-icon" *ngIf="stage > 3">done</mat-icon>
 					<div class="step-icon" *ngIf="stage <= 3">4</div>
@@ -216,14 +216,14 @@
 				<section id="page-buttons">
 					<span id="go-left-span" >
 				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" [disabled]="stage == 0" (click)="stage = changeFormStep(-1)" color="" type="button">
-				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <mat-icon class="arrow-icon-left">keyboard_arrow_left</mat-icon>
 				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
 				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('date').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
 				      <span>Weiter</span>
-				      <mat-icon>keyboard_arrow_right</mat-icon>
+				      <mat-icon class="arrow-icon-right">keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
 				</section>
@@ -266,14 +266,14 @@
 				<section id="page-buttons">
 					<span id="go-left-span">
 				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
-				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <mat-icon class="arrow-icon-left">keyboard_arrow_left</mat-icon>
 				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
 				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('startTime').errors != null || bookForm.get('endTime').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
 				      <span>Weiter</span>
-				      <mat-icon>keyboard_arrow_right</mat-icon>
+				      <mat-icon class="arrow-icon-right">keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
 				</section>
@@ -308,7 +308,7 @@
 				<section id="page-buttons">
 					<span id="go-left-span">
 				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1)" color="" type="button">
-				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <mat-icon class="arrow-icon-left">keyboard_arrow_left</mat-icon>
 				      <span>Zurück</span>
 				    </button>
 					</span>
@@ -341,14 +341,14 @@
 				<section id="page-buttons">
 					<span id="go-left-span">
 				    <button mat-raised-button color="primary" class="go-left-button mini-fab-button" (click)="stage = changeFormStep(-1); checked ? toggleCheckbox($event) : null" color="" type="button">
-				      <mat-icon>keyboard_arrow_left</mat-icon>
+				      <mat-icon class="arrow-icon-left">keyboard_arrow_left</mat-icon>
 				      <span>Zurück</span>
 				    </button>
 					</span>
 					<span id="go-right-span" >
 				    <button mat-raised-button color="primary" class="go-right-button mini-fab-button" [disabled]="bookForm.get('category').errors != null" (click)="stage = changeFormStep(1)" color="" type="button">
 				      <span> Weiter</span>
-				      <mat-icon>keyboard_arrow_right</mat-icon>
+				      <mat-icon class="arrow-icon-right">keyboard_arrow_right</mat-icon>
 				    </button>
 					</span>
 				</section>

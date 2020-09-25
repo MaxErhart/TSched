@@ -1,36 +1,35 @@
-<div class="event-container" [class.active]="active" (click)="toggle()" [style.height]="active ? 'auto' : height  + 'px'" [style.top.px]="top">
-	<div class="event-header" [style.backgroundColor]="colors[event.category]" [style.color]="fontColors[event.category]">
+<div class="event-container" [class.active]="active" (click)="toggle()" [style.top.px]="top" [style.height]="active ? height > 100 ? height + 'px' : 'auto' : height  + 'px'">
+	<div class="event-header" [style.backgroundColor]="colors[event.category]" [style.color]="fontColors[event.category]" >
 <!-- 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>delete_outline</mat-icon>
     </button> -->
 <!-- 		<button mat-icon-button class="delete-button" *ngIf="active" (click)="deleteMe()">
       <mat-icon>more_vert</mat-icon>
     </button> -->
-		<div class="timespan header-item" >
-			{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
-		</div>
+    <div class="text-area">
+			<div class="timespan header-item" >
+				{{event.startDate | date:'H:mm'}} - {{event.endDate | date:'H:mm'}} &nbsp;
+			</div>
 
 
-		<div class="date header-item" *ngIf="(active || height>40) && !event.weekly " >
-			{{event.startDate | date:'EEEE, d. MMM'}}
-		</div>
+			<div class="date header-item"  >
+				<span *ngIf="(active || height>40) && !event.weekly ">{{event.startDate | date:'EEEE, d. MMM'}}</span>
+				<span *ngIf="(active || height>40) && event.weekly">{{event.startDate | date:'EEEE'}}s</span>
+			</div>
 
 
-		<div class="date header-item" *ngIf="(active || height>40) && event.weekly" >
-			{{event.startDate | date:'EEEE'}}s
-		</div>
+			<div class="title header-item" [style.gridRow]="'1/2'" [style.gridColumn]="'2/3'" >
+				{{event.category | titlecase}}
+			</div>
 
 
-		<div class="title header-item" [style.gridRow]="'1/2'" [style.gridColumn]="'2/3'" >
-			{{event.category | titlecase}}
-		</div>
+			<div class="owner header-item" *ngIf="active || height>40">
+				{{event.user.name | titlecase}}
+			</div>
+    </div>
 
-
-		<div class="owner header-item" *ngIf="active || height>40">
-			{{event.user.name | titlecase}}
-		</div>
 	</div>
-	<div class="event-body">
+	<div class="event-body" *ngIf="active">
 		{{event.info}}
 	</div>
 <!-- 	<div class="event-footer">

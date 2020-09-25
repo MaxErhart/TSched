@@ -543,8 +543,12 @@ button {
 #go-right-span {
 	height: 30px;
 }
-
-
+.arrow-icon-right{
+	margin-right: -10px;
+}
+.arrow-icon-left{
+	margin-left: -10px;
+}
 .mini-fab-button {
 	color: $mat-pink-500;
 }
@@ -592,6 +596,10 @@ button {
 	display: flex;
 	align-items: center;
 	margin-right: auto;
+	cursor: pointer;
+	// border: 1px solid $dark-theme-font-color;
+	// padding: 2px;
+	border-radius: 20px;
 	&.active{
 		color: $mat-pink-400;
 	}
@@ -612,7 +620,7 @@ button {
 	background-color: $mat-gray-750;
 }
 .step-icon {
-
+	transform: translateY(1px);
 }
 .step-text{
 	display: inline-block;

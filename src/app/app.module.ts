@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule  } from '@angular/common/http';
 
 // material components
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -69,6 +69,7 @@ export const DateFormats = {
     ReactiveFormsModule,
     A11yModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' }),
     MatMenuModule,
     FormsModule,
     DragDropModule,
@@ -89,6 +90,7 @@ export const DateFormats = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: DateFormats },
     { provide: LOCALE_ID, useValue: "de-de" },
+
   ],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,6 @@ import { invalidTimeSpanValidator, pastDateValidator, bookedColissionValidatorFu
 import * as Moment from 'moment';
 import {BookedEvent} from '../bookedEvent.interface'
 import { EventService } from '../event.service';
-import { HttpClient } from '@angular/common/http';
 import { FormAnimation, ExpandAnimation, ExpandAnimationForm } from '../form.animation'
 
 @Component({
@@ -24,7 +23,7 @@ export class BookFormComponent implements OnInit {
 	primary600 = '#5600e818';
 
 	// colors = {Grau: 'gray', Lila: '#6300ee', Grün: '#03dac4', Blau: '#3f51b5', Rot: '#F9665E', Pink: '#E18AAA'};
-  eventCategories = {Training: '#3f51b5', Privat: '#00b798', Tunier: '#ff4080'};
+  eventCategories = {Training: '#3f51b5', Privat: '#00b798', Turnier: '#ff4080'};
 
 
 	page2Ative = false;
@@ -51,7 +50,7 @@ export class BookFormComponent implements OnInit {
 		{ validators: [invalidTimeSpanValidator, bookedColissionValidatorFunction(this._eventService)] },
 	);
 
-  constructor(private _eventService: EventService, private http: HttpClient) { }
+  constructor(private _eventService: EventService) { }
 
   toggleCheckbox(event?){
     this.bookForm.controls.weekly.setValue(!this.bookForm.controls.weekly.value);
@@ -64,7 +63,7 @@ export class BookFormComponent implements OnInit {
   onSubmit(customerData){
 
     this.bookForm.reset();
-    this._eventService.addEvent(this.generateEventData(customerData));
+    this._eventService.addEvent(this.generateEventData(customerData)).subscribe(data => console.log(data));
     this.stage = 0;
     this.close()
   }
@@ -76,10 +75,11 @@ export class BookFormComponent implements OnInit {
     const date = customerData.date._d.getDate();
     const startDate = new Date(year, month, date, customerData.startTime.split(':')[0], customerData.startTime.split(':')[1]);
     const endDate = new Date(year, month, date, customerData.endTime.split(':')[0], customerData.endTime.split(':')[1]);
-    if(customerData.info == ''){
-      return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: 'Keine Beschreibung', numOfWeeks: customerData.numOfWeeks, user: customerData.user};
-    } else {
+    console.log(customerData.info)
+    if(customerData.info){
       return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: customerData.info, numOfWeeks: customerData.numOfWeeks, user: customerData.user};
+    } else {
+      return {startDate: startDate, endDate: endDate, pageId: customerData.activePageCourt, weekly: customerData.weekly, category: customerData.category, info: 'Keine Beschreibung', numOfWeeks: customerData.numOfWeeks, user: customerData.user};
     }
     formData.append('startDate',  startDate.toString());
     formData.append('endDate',  endDate.toString());
@@ -110,9 +110,9 @@ export class BookFormComponent implements OnInit {
 
   @HostListener('document:keypress', ['$event']) documentKeyPress(event: KeyboardEvent) {
     if(event.charCode == 13){
-      console.log(this.bookForm.controls.startTime)
-      this.bookForm.controls.startTime.markAsTouched();
-      this.bookForm.controls.startTime.markAsDirty();
+      // console.log(this.bookForm.controls.startTime)
+      // this.bookForm.controls.startTime.markAsTouched();
+      // this.bookForm.controls.startTime.markAsDirty();
       // this.bookForm.controls.startTime.updateValueAndValidity();
     }
     // this.untouchFields();
@@ -120,8 +120,8 @@ export class BookFormComponent implements OnInit {
   @HostListener('document:click', ['$event']) documentClick(event: MouseEvent) {
     // console.log(this.bookForm.get('startTime'));
     // console.log(this.bookForm.get('date').errors == null)
-    console.log(this.bookForm)
-    console.log(this.bookForm.invalid)
+    // console.log(this.bookForm)
+    // console.log(this.bookForm.invalid)
   }
 
   open(){

@@ -1,6 +1,7 @@
 @import '../../styleVars';
 
 .event-container{
+	height: auto;
 	position: relative;
 	width: $grid-col-width;
 	color: $dark-theme-font-color;
@@ -10,6 +11,7 @@
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
+	background-color: $mat-gray-750;
 	&.active{
 		// height: auto;
 		// transform: translate(calc(-0.15 * #{$grid-col-width}), -10%);
@@ -34,19 +36,24 @@
 
 .event-header{
 	height: 100%;
+	transition: 200ms ease-in-out;
+	padding: 5px;
+
+}
+
+.text-area{
+	height: auto;
+	margin-bottom: auto;
 	display: grid;
 	align-items: center;
 	grid-template-columns: 170px 80px;
-	transition: 200ms ease-in-out;
-	padding: 6px 6px 6px 6px;
-
 }
 
 .header-item{
 	display: flex;
 	align-items: flex-end;
 	justify-conten: flex-start;
-	padding: 3px 0;
+	padding: 2px 0;
 }
 
 .delete-button{
@@ -67,6 +74,7 @@
 }
 
 .event-body{
+
 	height: 0%;
 	padding: 10px 6px 6px 10px;
 	visibility: hidden;
@@ -74,11 +82,11 @@
 	transition: 200ms ease-in-out;
 
 }
-.event-footer{
-	height: 0%;
+// .event-footer{
+	// height: 0%;
 	// border-top: 1px solid $dark-theme-font-color;
-	visibility: hidden;
-}
+	// visibility: hidden;
+// }
 
 .overlay{
 	position: fixed;
